@@ -59,9 +59,12 @@
   date         = {2013-01-01},
   journaltitle = {International Journal of Inovative Research in Science, Engineering and Technology},
   title        = {Intelligent Sensor Networks},
+  issn         = {2347-6710},
   issue        = {3},
   pages        = {5},
   subtitle     = {The integration of Sensor Networks, Signal Processing and Machine LEarning},
+  url          = {http://www.ijirset.com/upload/2016/march/98_24_Microsoft.pdf},
+  urldate      = {2022-10-15},
   volume       = {5},
 }
 
@@ -101,6 +104,13 @@
   url          = {http://www.ijirset.com/upload/2016/march/98_24_Microsoft.pdf},
   urldate      = {2022-10-09},
   volume       = {5},
+}
+
+@Article{Olugbenga2022,
+  author       = {Motunrrayo Olugbenga},
+  date         = {2022-11-14},
+  journaltitle = {MLOps Blog},
+  title        = {Balanced Accuracy: When Should You Use It?},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}

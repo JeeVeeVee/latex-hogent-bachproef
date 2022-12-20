@@ -1,3 +1,4 @@
+% !TeX spellcheck = <none>
 \chapter{\IfLanguageName{dutch}{Stand van zaken}{State of the art}}%
 \label{ch:stand-van-zaken}
 
@@ -6,12 +7,115 @@
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
+\section{Machine Learning}
+\textcite{Hu2013} beschrijft het doel van machine learning als het ontwerpen en ontwikkelen van algoritmes die systemen toelaten om op basis van data, ervaring en training zichzelf aan te passen. 
+\subsection{Algoritmes}
+Machine learning algoritmes kunnen worden verdeeld op basis van hoe hun proces er uitziet :
+\begin{itemize}
+    \item \textbf{Supervised Learning}: het algoritme krijgt een gelabelde dataset om te trainen, op basis daarvan wordt een model opgebouwd dat niet gelabelde datasets kan classificeren. Achteraf moet een 'supervisor' hoeveel procent van de toegekende labels correct waren. 
+    \item \textbf{Unsupervised learning}: het algoritme vertrekt vanuit een niet gelabelde dataset en gaat zelf op zoek naar patronen in de dataset. Op basis van de patronen maakt het algoritme zelf een classificatie.
+    \item \textbf{Semi-supervised learning}: een hybride van supervised en unsupervised learning.
+    \item \textbf{Reinforcement learing}: het algoritme leert hoe het zich moet gedragen op basis van een gegeven feit. Elke actie heeft een invloed op het model, dat op zijn beurt kan terugkoppelen naar het model om zo het gedrag te beïnvloeden.
+    \item \textbf{Transduction}: gelijkaardig aan supervised learing, maar genereert niet per se een functie, het probeert de nieuwe outputs te voorspellen op basis van training inputs, training outputs en nieuwe inputs.
+    \item \textbf{Learning to learn}: het algoritme leert zichzelf gedrag aan gebaseerd op vorige ervaring.
+\end{itemize}
+\autocite{Zhang2010}
 
-Dit hoofdstuk bevat je literatuurstudie. De inhoud gaat verder op de inleiding, maar zal het onderwerp van de bachelorproef *diepgaand* uitspitten. De bedoeling is dat de lezer na lezing van dit hoofdstuk helemaal op de hoogte is van de huidige stand van zaken (state-of-the-art) in het onderzoeksdomein. Iemand die niet vertrouwd is met het onderwerp, weet nu voldoende om de rest van het verhaal te kunnen volgen, zonder dat die er nog andere informatie moet over opzoeken \autocite{Pollefliet2011}.
 
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz.\ naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${textcite\{\}}} of \texttt{$\backslash${autocite\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\LaTeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin, gebruik je \texttt{$\backslash${}textcite\{\}}.
-Soms wil je de auteur niet expliciet vernoemen, dan gebruik je \texttt{$\backslash${}autocite\{\}}. In de volgende paragraaf een voorbeeld van elk.
+\subsection{Machine Learning as a Service (MLaaS)}
+MLaaS is de verzameltern voor de verzameling van cloud-based platforms die machine learing gebruiken om oplossingen aan te bieden. \autocite{Onose2022}. Deze oplossing kunnen meerdere vormen aannemen: 
+\begin{itemize}
+    \item voorspellende analyse voor verschillende use cases
+    \item trainen en afstellen van een model
+    \item implemenatie van een model
+\end{itemize}
 
-\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\autocite{Creeger2009}.
+MLaaS heeft ook een aantal gebreken, zo heb je zelf niet altijd controle over de gebruikte algoritmes en parameters en het is niet geschikt voor gevoelige data.
 
-\lipsum[7-20]
+\subsection{ETL-services}
+%TODO
+
+\subsection{Machine Learning vraagstukken}
+Machine Learning (ML) kan worden gebruikt voor het oplossen van 2 types problemen : 
+\begin{itemize}
+    \item Classificatie
+    \item Regressie
+\end{itemize}  
+
+De classificatie problemen kunnen op hun beurt nog worden in binaire en multiclass classificatie problemen, aan de hand van het aantal klasses dat de oplossing moet kunnen onderscheiden.  \autocite{Olugbenga2022}
+\subsection{Evaluatie parameters}
+\subsubsection{Verwarrings matrix}
+Een tool die meer inzicht kan geven in de performantie van een ML-model is een verwarrings matrix, dit is een N x N matrix, waarbij N het aantal klasses is dat het model moet kunnen onderscheiden.  De kolommen stellen de voorspellingen van het ML-model voor en de rijen de realiteit: 
+\begin{center}
+    \begin{tabular} {|c | c | c |}
+        \hline
+        & positive & negative \\
+        \hline
+       positive & TP & FN \\
+        \hline
+         negative & FP  & TN \\
+        \hline
+    \end{tabular}
+\end{center}
+Hier kunnen we 4 verschillende gevallen onderscheiden : 
+\begin{itemize}
+    \item TP- true positive : het model voorspelt een positieve waarde, wat overeenkomt met de realiteit
+    \item TN - true negative : het model voorspelt een negatieve waarde, wat overeenkomt met de realiteit
+    \item FP - false positive : het model voorspelt een positieve waarde, wat niet overeenkomt met de realiteit
+    \item FN - false negative : het model voorspelt een negatieve waarde, wat niet overeenkomt met de realiteit
+\end{itemize}
+
+\subsubsection{Nauwkeurigheid}
+De nauwkeurigheid van een model beschrijft welk deel van de voorspellingen van het model juist zijn. Het aantal correcte voorspellingen gedeeld door het totale aantal voorspellingen. De formule voor nauwkeurigheid kan ook worden uitgedrukt met parameters uit de verwarringsmatrix : 
+\[Nauwkeurigheid = (TP + TN) / (TP + FN +FP + TN)\]
+
+\subsubsection{Gevoeligheid}
+De gevoeligheid van een model geeft aan welk deel van alle positieve gevallen door het model juist werden voorspeld, ofwel : 
+\[Gevoeligheid = TP / (TP / FN) )\]
+
+\subsubsection{Precisie}
+Precisie van een model geeft aan welk deel van alle positieve voorspellingen van het model juist waren, ofwel : 
+\[Gevoeligheid = TP / (TP / FP) )\]
+
+\subsubsection{Gewogen nauwkeurigheid}
+Beschouw volgende verwarringmatrix : 
+\begin{center}
+   \begin{tabular} {|c | c | c |}
+       \hline
+       & positive & negative \\
+       \hline
+       positive & 20 & 70 \\
+       \hline
+       negative & 30  & 5000 \\
+       \hline
+   \end{tabular}
+\end{center}
+
+Als de nauwkeurigheid van het model wordt berekend op basis van deze matrix dan bekomen we een waarde van {\~0.9805}\}. Deze score is hoog, terwijl het model slechts 22\% van de positieve gevallen uit juist beoordeeld. De nauwkeurigheid van het model is alsnog vrij hoog omdat de negatieve  waarden oververtegendwoordigd zijn in de reële cases. Voor datasets die niet gebalanceerd zijn kan er gebruik worden gemaakt van de gewogen nauwkeurigheid. Deze neemt het gemiddelde van de precisie en gevoeligheid van het model en houdt dus wel rekening met de verhoudingen binnen de dataset, oftewel : 
+\[Gewogen Nauwkeurigheid = Gevoeligheid + Precisie / 2 )\]
+
+\autocite{Olugbenga2022}
+
+\subsection{eerder onderzoek}
+\textcite{Madhuri2016} stelt dat de verschillen tussen Amazon Web Services (AWS) en Microsoft Azure klein zijn en dat de keuze voor de ene of de andere optie neerkomt op use-case en eigen voorkeur. \textcite{Pinto2018} gebruikte de volgende criteria om MLaaSes te vergelijken :
+\begin{itemize}
+    \item schaalbaarheid
+    \item snelheid
+    \item in welke mate dient de oplossing zijn oorspronkelijke doel
+    \item bruikbaarheid
+\end{itemize}
+\textcite{Pallavi2020} vergeleek de AWS, Google en Azure oplossingen op algemeen vlak, en dus niet voor een specifieke usecase, maar concludeerde net als \textcite{Madhuri2016} dat de keuze afhankelijk is van de use-case en eigen voorkeur.
+
+Uit \textcite{Pallavi2020} en \textcite{Madhuri2016} kunnen we volgende tabel besluiten: 
+\begin{itemize}
+    \item schaalbaarheid en het ondersteunen van meerdere SQL-varianten zijn de grootste troeven van AWS
+    \item het feit dat Azure gemakkelijk in te passen is in een reeds bestaande Microsoft omgeving is een grote troef van Azure
+    \item Google maakt gebruik van de meest performante systemen om zijn berekeningen te doen en heeft veel ingebouwde libraries
+    \item Azure ondersteunt alleen AzureSQL
+\end{itemize}
+
+
+\section{PIM}
+Het belang van Product Information Management (PIM) stijgt door het alsmaar verhoogde niveau van de technische complexiteit  van producten, die complexiteit zorgt ervoor namelijk voor dat er een overvloed aan informatie ontstaat die bovendien moeilijk up-to-date kan worden gehouden. \autocite{Fr_mling_2006} Vaak combineert een PIM-systeem data uit verschillende andere systemen en databronnen (zoals ERP's, databanken, excels, etc.) en bundelt het die tot een single-source of truth die bovendien altijd up-to-date is. De data van het PIM-systeem kan dan worden geconsumeerd door brand portals, product sheets, een webshop, ...
+
+
