@@ -12,13 +12,13 @@
 %% onderzoeksvraag.
 
 \section{Dataset}
-Voor het vergelijken van de 3 aanbieders van MLaaS wordt er gebruik gemaakt van de constructalia dataset. Dit is een bestaand PIM-systeem van ArchelorMittal met ongeveer 40000 entiteiten die met de hand getagd werden. Daarvan zijn er 1020 pdfs, die de tag 'internationaal' hebben, wat er op wijst dat de PDF's in het Engels zijn. Dit zodat het model niet moet rekeninghouden met meerdere talen. Van de 1000 files konden er 702 succesvol worden omgezet naar tekst. Hiervoor werd er gebruik gemaakt van de python package PyPDF2. Vervolgens werden er 2 types output gegenereerd :
+Voor het vergelijken van de 3 aanbieders van MLaaS wordt er gebruik gemaakt van de constructalia dataset. Dit is een bestaand PIM-systeem van ArchelorMittal met ongeveer 40000 entiteiten die met de hand getagd werden. Daarvan zijn er 1020 pdf's, die de tag 'internationaal' hebben, wat er op wijst dat de pdf's in het Engels zijn. Dit zodat het model niet moet rekening houden met meerdere talen. Van de 1000 files konden er 702 succesvol worden omgezet naar tekst. Hiervoor werd er gebruik gemaakt van de python package PyPDF2. Vervolgens werden er 2 types output gegenereerd :
 \begin{itemize}
-    \item Een directory met daarin een json-bestand per PDF, die alle info over de PDF omvatte. De belangerijkste velden van deze json-objecten zijn 'data.filename', 'data.text' en 'type\_tags'.
-    \item een csv-bestand met kolommen 'type\_tag', 'file\_name' en 'file\_content' 
+    \item Een directory met daarin een json-bestand per PDF, die alle info over de PDF omvatte. De belangrijkste velden van deze json-objecten zijn 'data.filename', 'data.text' en 'type\_tags'.
+    \item een CSV-bestand met kolommen 'type\_tag', 'file\_name' en 'file\_content' 
 \end{itemize}
 
-Omdat we de leercurves van de verschillende platformen willen vergelijken (voorspellend vermogen in functie van het aantal records dat gebruikt word als trainingsdataset) voorzien we 5 verschillende trainings-datasets: 
+Omdat we de leercurves van de verschillende platformen willen vergelijken (voorspellend vermogen in functie van het aantal records dat gebruikt wordt als trainingsdataset) voorzien we 5 verschillende trainingsdatasets: 
 \begin{itemize}
     \item 10\% van de records
     \item 20\% van de records
@@ -27,14 +27,24 @@ Omdat we de leercurves van de verschillende platformen willen vergelijken (voors
     \item 100\% van de records
 \end{itemize}
 
-\section{Keuze van kolom die voorspeld moet worden}
 
+\section{Keuze tag die voorspeld moet worden}
+De providers worden vergeleken op basis van de nauwkeurigheid en de gewogen nauwkeurigheid van de modellen die ze genereren. Vooraleer dat kan gebeuren moet er worden beslist welke tag de modellen moeten voorspellen, hiervoor zijn er een aantal factoren waar rekening mee moet worden gehouden: 
+\begin{itemize}
+    \item relevantie PIMLayer context: Niet alle tags uit de constructalia-dataset zijn even relevant voor het onderzoek omdat ze zeer specifiek gericht zijn op constructalia. Andere tags zijn dan weer zeer relevant voor PIMLayer aangezien de dataset wel afkomstig is uit een PIM-systeem.
+    \item pluraliteit: bij sommige tags is het mogelijk om meerdere tags te hebben. Dit maakt het moeilijker voor de modellen om een correcte nauwkeurigheid te berekenen. 
+\end{itemize}
 
+\subsection{application\_tag}
+De eerste tag die werd uitgeprobeerd (in AWS SageMaker) was de application\_tag, dit kwam vooral omdat deze tag zeer relevant is in context van PIMLayer. Deze tag geeft aan voor welk type gebouw of constructie het bestand relevant is. Dit is een tag waarvoor er meerdere tags bij 1 bestand hangen. In een eerste poging werden de tags als een array gevoed als trainingsdata. Het beste model behaalde hier een nauwkeurigheid van 55\%, maar deze nauwkeurigheid geeft geen volledig beeld van wat het voorspellend vermogen van dat model was, als het model een array voorspelde waar 1 van de effectieve tags niet inzat, dan werd dit als fout aangerekend, terwijl het model wel al een deel van de tags juist had voorspeld. Om te verhelpen dat het model een array van tags zou teruggeven, werd de trainingsdataset omgevormd zodat er voor elke tag in de array een apart record was met alleen die tag (maar dus met dezelfde file\_name en zelfde file\_content waardes). Hier haalde het beste model een nauwkeurigheid van  39\%. Logisch natuurlijk, want stel dat een file 3 verschillende tags heeft, dan geeft het model maar 1 tag terug (zo is het getraind) maar als de test-data toevallig 1 van de andere 2 tags heeft, dan rekent het model zichzelf een fout aan terwijl het juist was. 
+
+\subsection{type\_tag}
+De tweede tag die werd getest was de type\_tag. Deze tag geeft aan over welk type document het gaat, bijvoorbeeld: `brochure`, `Certificaat`, `Nieuwsartikel`, ... Deze tag werd vooral gekozen omdat hij zowel relevant is in PIMLayer context als het feit dat er altijd maar 1 tag per bestand is. Hierdoor vielen de problemen met de application\_tag weg. Het beste model van de eerste testrun met type\_tag als te voorspellen waarde behaalde een nauwkeurigheid van 88\%. Er werd dan ook gekozen om deze parameter te gebruiken. 
 
 \section{AWS SageMaker}
-De eerst provider die werd uitgtest was AWS (Amazon). 
+De eerst provider die werd uitgtest was AWS (Amazon), daardoor is er hier een extra sectie : keuze tag die voorspeld moet worden. 
 \subsection{Opzet}
-Het opzetten van een AWS account is vrij simpel, er dienen een paar basis gegevens worden ingevuld, vervolgens moet er (verplicht) een creditcard aan het account verbonden worden waar tijdelijk 1 euro van wordt afgehouden om de identiteit en legitimiteit van de creditcard te bevestigen. Nadat de account is opgezet heeft men toegang tot alle verschillende services die Amazon aanbiedt. Er is ook de mogelijkheid om organisaties op te zetten , waar er dan collega's kunnen aan toegevoegd worden.
+De eerste stap van het opzetten van een AWs SageMaker omgeving is zich registreren, er dienen een paar basis gegevens worden ingevuld, vervolgens moet er (verplicht) een creditcard aan het account verbonden worden waar tijdelijk 1 euro van wordt afgehouden om de identiteit en legitimiteit van de creditcard te bevestigen. Nadat de account is opgezet heeft men toegang tot alle verschillende services die Amazon aanbiedt. Er is ook de mogelijkheid om organisaties op te zetten , waar er dan collega's kunnen aan toegevoegd worden.
 
 Het opzetten van een SageMaker instance verloopt ook vrij vlot, al duurt het wel een uur vooraleer de service kan worden gebruikt. 
 
@@ -53,7 +63,7 @@ Voor het opladen van data moet er een data-pipeline worden opgezet, hiervoor zij
     \item \textbf{SageMaker Data Wrangler}: dit is een AWS-service die de complexiteit verwerkingsproces van de data reduceert tot een visuele interface. Het kan zowel gebruikt worden voor het preprocessen van data al het voorbereiden van de data voor training en voor het trekken uit conclusies uit de data.
     \item  \textbf{SageMaker Studio notebooks}: binnenin de SageMaker omgeving is er ook een ontwikkelingsomgeving die (onder andere) notebooks ondersteunt. In Studio kunnen er custom dataflows worden gebouwd in Python en kan er dus ook gebruik worden gemaakt van verschillende data-processing packages, zoals pandas en numpy.
     \item \textbf{Amazon Glue}:  Amazon Glue is een ETL-service die toelaat om data te extraheren van verschillende bronnen endeze op te laden naar een S3-bucket.
-    \item \textbf{custom scripts}: Er kan natuurlijk ook vanuit een lokale omgeving data worden weggeschreven naar een S3=bucket, op deze manier wordt er maximale controle gehouden over de manier waarop de data wordt verwerkt. 
+    \item \textbf{custom scripts}: Er kan natuurlijk ook vanuit een lokale omgeving data worden weggeschreven naar een S3-bucket, op deze manier wordt er maximale controle gehouden over de manier waarop de data wordt verwerkt. 
 \end{itemize}
 
  maar de data kan niet rechtstreeks van een lokale PC opgeladen worden binnen SageMaker. Als je gebruik wilt maken van de S3 bucket die automatisch werd aangemaakt dan moet je overschakelen naar de S3 service. 
@@ -73,6 +83,7 @@ Amazon SageMaker is een pay-as-you-go service, dit betekent dat er alleen betaal
     \item\textbf{ Gegevensoverdracht}: Er wordt een prijs aangerekend voor de data die naar SageMaker worden overgezet. Dit omvat gegevensoverdracht tussen SageMaker en andere AWS-diensten, evenals gegevensoverdracht van en naar het internet.
 \end{itemize}
 
+
 \subsection{Resultaten}
 De resultaten van de modellen die door AWS werden gegenereerd, hadden de volgende evaluatie parameters:
 \begin{center}
@@ -88,7 +99,7 @@ De resultaten van de modellen die door AWS werden gegenereerd, hadden de volgend
         \hline
          50\% & 55\% & 88\% \\
         \hline
-         100\% & 82\% & 94\% \\
+         100\% & 88\% & 94\% \\
         \hline
     \end{tabular}
 \end{center}
