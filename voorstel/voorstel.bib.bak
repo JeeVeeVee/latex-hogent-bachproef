@@ -113,4 +113,232 @@
   title        = {Balanced Accuracy: When Should You Use It?},
 }
 
+@WWW{2022,
+  date  = {2022-12-22},
+  title = {What is ETL},
+  url   = {https://cloud.google.com/learn/what-is-etl},
+}
+
+@InProceedings{Diouf2018,
+  author    = {Papa Senghane Diouf and Aliou Boly and Samba Ndiaye},
+  booktitle = {2018 {IEEE} International Conference on Innovative Research and Development ({ICIRD})},
+  date      = {2018-05},
+  title     = {Variety of data in the {ETL} processes in the cloud: State of the art},
+  doi       = {10.1109/icird.2018.8376308},
+  publisher = {{IEEE}},
+}
+
+@Article{He2021,
+  author       = {Xin He and Kaiyong Zhao and Xiaowen Chu},
+  date         = {2021-01},
+  journaltitle = {Knowledge-Based Systems},
+  title        = {{AutoML}: A survey of the state-of-the-art},
+  doi          = {10.1016/j.knosys.2020.106622},
+  pages        = {106622},
+  volume       = {212},
+  publisher    = {Elsevier {BV}},
+}
+
+@InCollection{Feurer2019,
+  author    = {Matthias Feurer and Frank Hutter},
+  booktitle = {Automated Machine Learning},
+  date      = {2019},
+  title     = {Hyperparameter Optimization},
+  doi       = {10.1007/978-3-030-05318-5_1},
+  pages     = {3--33},
+  publisher = {Springer International Publishing},
+}
+
+@Online{ProjectPro2023,
+  author       = {ProjectPro},
+  date         = {2023-01-13},
+  editor       = {ProjectPro},
+  title        = {Popular Machine Learning Frameworks for Model Training},
+  journaltitle = {ProjectPro},
+}
+
+@Misc{Bahrampour2015,
+  author    = {Bahrampour, Soheil and Ramakrishnan, Naveen and Schott, Lukas and Shah, Mohak},
+  date      = {2015},
+  title     = {Comparative Study of Deep Learning Software Frameworks},
+  doi       = {10.48550/ARXIV.1511.06435},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  keywords  = {Machine Learning (cs.LG), FOS: Computer and information sciences},
+  publisher = {arXiv},
+}
+
+@WWW{AWS2023,
+  author = {AWS},
+  date   = {2023-01-13},
+  editor = {AWS},
+  title  = {Amazon SageMaker Features},
+  url    = {https://docs.aws.amazon.com/sagemaker/latest/dg/whatis-features-alpha.html},
+}
+
+@Article{Olah2018,
+  author       = {Chris Olah},
+  date         = {2018-03-12},
+  journaltitle = {The Keyword},
+  title        = {Understanding the inner workings of neural networks},
+}
+
+@Article{Pragati2023,
+  author       = {Baheti Pragati},
+  date         = {2023-01-03},
+  journaltitle = {V7},
+  title        = {Activation Functions in Neural Networks},
+  url          = {https://www.v7labs.com/blog/neural-networks-activation-functions},
+  urldate      = {2023-01-14},
+}
+
+@Article{Krizhevsky2017,
+  author       = {Alex Krizhevsky and Ilya Sutskever and Geoffrey E. Hinton},
+  date         = {2017-05},
+  journaltitle = {Communications of the {ACM}},
+  title        = {{ImageNet} classification with deep convolutional neural networks},
+  doi          = {10.1145/3065386},
+  number       = {6},
+  pages        = {84--90},
+  volume       = {60},
+  publisher    = {Association for Computing Machinery ({ACM})},
+}
+
+@Article{LeCun2015,
+  author       = {Yann LeCun and Yoshua Bengio and Geoffrey Hinton},
+  date         = {2015-05},
+  journaltitle = {Nature},
+  title        = {Deep learning},
+  doi          = {10.1038/nature14539},
+  number       = {7553},
+  pages        = {436--444},
+  volume       = {521},
+  publisher    = {Springer Science and Business Media {LLC}},
+}
+
+@Article{McCulloch1943,
+  author       = {Warren S. McCulloch and Walter Pitts},
+  date         = {1943-12},
+  journaltitle = {The Bulletin of Mathematical Biophysics},
+  title        = {A logical calculus of the ideas immanent in nervous activity},
+  doi          = {10.1007/bf02478259},
+  number       = {4},
+  pages        = {115--133},
+  volume       = {5},
+  publisher    = {Springer Science and Business Media {LLC}},
+}
+
+@Article{Ravi2017,
+  author       = {Daniele Ravi and Charence Wong and Fani Deligianni and Melissa Berthelot and Javier Andreu-Perez and Benny Lo and Guang-Zhong Yang},
+  date         = {2017-01},
+  journaltitle = {{IEEE} Journal of Biomedical and Health Informatics},
+  title        = {Deep Learning for Health Informatics},
+  doi          = {10.1109/jbhi.2016.2636665},
+  number       = {1},
+  pages        = {4--21},
+  volume       = {21},
+  publisher    = {Institute of Electrical and Electronics Engineers ({IEEE})},
+}
+
+@Article{Rumelhart1986,
+  author       = {David E. Rumelhart and Geoffrey E. Hinton and Ronald J. Williams},
+  date         = {1986-10},
+  journaltitle = {Nature},
+  title        = {Learning representations by back-propagating errors},
+  doi          = {10.1038/323533a0},
+  number       = {6088},
+  pages        = {533--536},
+  volume       = {323},
+  publisher    = {Springer Science and Business Media {LLC}},
+}
+
+@InProceedings{Banko2001,
+  author    = {Michele Banko and Eric Brill},
+  booktitle = {Proceedings of the 39th Annual Meeting on Association for Computational Linguistics - {ACL} {\textquotesingle}01},
+  date      = {2001},
+  title     = {Scaling to very very large corpora for natural language disambiguation},
+  doi       = {10.3115/1073012.1073017},
+  publisher = {Association for Computational Linguistics},
+}
+
+@Book{Geron,
+  author    = {Géron, Aurélien},
+  title     = {Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow Concepts, Tools, and Techniques to Build Intelligent Systems},
+  isbn      = {9781492032649},
+  pages     = {856},
+  publisher = {O'Reilly Media},
+  subtitle  = {Concepts, Tools, and Techniques to Build Intelligent Systems},
+}
+
+@Thesis{Daniel2019,
+  author      = {Berrar Daniel},
+  date        = {2019-01-01},
+  institution = {Data Science Laboratory, Tokyo Institute of Technology},
+  title       = {Cross-validation},
+  type        = {resreport},
+  url         = {https://www.researchgate.net/profile/Daniel-Berrar/publication/324701535_Cross-Validation/links/5cb4209c92851c8d22ec4349/Cross-Validation.pdf},
+}
+
+@Article{Pachmann2022,
+  author    = {Pachmann, Tim},
+  date      = {2022},
+  title     = {An evaluation and comparison of AutoML solutions: Azure AutoML and EvalML},
+  doi       = {10.48444/H_DOCS-PUB-271},
+  language  = {en},
+  copyright = {Creative Commons - CC BY - Namensnennung 4.0 International},
+  keywords  = {000 Informatik, Informationswissenschaft, allgemeine Werke},
+  publisher = {Hochschule Darmstadt},
+}
+
+@Thesis{Sheth2018,
+  author      = {Nicolo Fusi ,Rishit Sheth , MelihHuseyn Elibol},
+  date        = {2018-05-01},
+  institution = {Microsoft Azure},
+  title       = {Probabilistic Matrix Factorization for Automated Machine Learni},
+  type        = {techreport},
+}
+
+@WWW{Mukunthu2018,
+  author = {Deepak Mukunthu},
+  date   = {2018-09-24},
+  editor = {Deepak Mukunthu},
+  title  = {Announcing automated ML capability in Azure Machine Learning},
+  url    = {https://azure.microsoft.com/en-us/blog/announcing-automated-ml-capability-in-azure-machine-learning/},
+  type   = {software},
+}
+
+@InProceedings{Das2020,
+  author    = {Piali Das and Nikita Ivkin and Tanya Bansal and Laurence Rouesnel and Philip Gautier and Zohar Karnin and Leo Dirac and Andre Perunicic and Iaroslav Shcherbatyi and Aida Zolic},
+  booktitle = {SIGMOD/PODS 2020},
+  date      = {2020},
+  title     = {Amazon SageMaker autopilot: a white box AutoML solution at scale},
+  url       = {https://www.amazon.science/publications/amazon-sagemaker-autopilot-a-white-box-automl-solution-at-scale},
+}
+
+@InProceedings{Xin2021,
+  author    = {Doris Xin and Eva Yiwei Wu and Doris Jung-Lin Lee and Niloufar Salehi and Aditya Parameswaran},
+  booktitle = {Proceedings of the 2021 {CHI} Conference on Human Factors in Computing Systems},
+  date      = {2021-05},
+  title     = {Whither {AutoML}? Understanding the Role of Automation in Machine Learning Workflows},
+  doi       = {10.1145/3411764.3445306},
+  publisher = {{ACM}},
+}
+
+@Book{James2014,
+  author = {Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani},
+  date   = {2014-01-01},
+  title  = {An introduction to Statistical Learning},
+}
+
+@Article{Maulud2020,
+  author       = {Dastan Maulud and Adnan M. Abdulazeez},
+  date         = {2020-12},
+  journaltitle = {Journal of Applied Science and Technology Trends},
+  title        = {A Review on Linear Regression Comprehensive in Machine Learning},
+  doi          = {10.38094/jastt1457},
+  number       = {4},
+  pages        = {140--147},
+  volume       = {1},
+  publisher    = {Interdisciplinary Publishing Academia},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}

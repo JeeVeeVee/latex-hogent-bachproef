@@ -1,0 +1,239 @@
+@Article{SabiEtAl2016,
+  author       = {Sabi, Humphrey M. and Uzoka, Faith-Michael E. and Langmia, Kehbuma and Njeh, Felix M.},
+  title        = {Conceptualizing a model for adoption of cloud computing in education},
+  journaltitle = {International Journal of Information Management},
+  year         = {2016},
+  volume       = {36},
+  number       = {2},
+  pages        = {183--191},
+  doi          = {10.1016/j.ijinfomgt.2015.11.010},
+  url          = {http://www.sciencedirect.com/science/article/pii/S0268401215001115},
+}
+
+@Online{LewisFowler2014,
+  author    = {Lewis, James and Fowler, Martin},
+  title     = {Microservices: a definition of this new architectural term},
+  date      = {2014-03-25},
+  url       = {http://martinfowler.com/articles/microservices.html},
+  urldate   = {2016-09-01},
+}
+
+@Online{Hykes2013,
+  author    = {Solomon Hykes},
+  title     = {The future of Linux Containers (PyCon 2013)},
+  date      = {2013-03-21},
+  url       = {https://www.youtube.com/watch?v=wW9CAH9nSLs},
+  urldate   = {2016-09-01},
+}
+
+@Article{Matilla2018,
+  author = {Matilla, Salla},
+  date   = {2018},
+  title  = {Product information management challenges in B2B e-commerce : a case study in spare parts business},
+}
+
+@WWW{AwareNV2022,
+  author  = {AwareNV},
+  date    = {2022-10-08},
+  editor  = {AwareNV},
+  title   = {PIMLayer},
+  url     = {https://pimlayer.be/},
+  urldate = {2022-10-10},
+}
+
+@Article{Onose2022,
+  author       = {Onose, Ejiro},
+  date         = {2022-07-21},
+  journaltitle = {neptune.ai},
+  title        = {Machine Learning as a Service: What It Is, When to Use It and What Are the Best Tools Out There},
+}
+
+@Book{Zhang2010,
+  author = {Zhang, Yangang},
+  date   = {2010-01-01},
+  title  = {New Advances in Machine Learning},
+}
+
+@Article{Hu2013,
+  author       = {Hu, Fei and Hao, Qi},
+  date         = {2013-01-01},
+  journaltitle = {International Journal of Inovative Research in Science, Engineering and Technology},
+  title        = {Intelligent Sensor Networks},
+  issn         = {2347-6710},
+  issue        = {3},
+  pages        = {5},
+  subtitle     = {The integration of Sensor Networks, Signal Processing and Machine LEarning},
+  url          = {http://www.ijirset.com/upload/2016/march/98_24_Microsoft.pdf},
+  urldate      = {2022-10-15},
+  volume       = {5},
+}
+
+@Article{Fr_mling_2006,
+  author       = {Kary Främling and Timo Ala-Risku and Mikko Kärkkäinen and Jan Holmström},
+  date         = {2006-01},
+  journaltitle = {Computers in Industry},
+  title        = {Agent-based model for managing composite product information},
+  doi          = {10.1016/j.compind.2005.04.004},
+  number       = {1},
+  pages        = {72--81},
+  volume       = {57},
+  publisher    = {Elsevier {BV}},
+}
+
+@Article{Pallavi2020,
+  author       = {Pallavi, Wankhede & Minaiy, Talati & Rutuja Chinchamalatpure},
+  date         = {2020-04-02},
+  journaltitle = {International Journal of Research in Engineering and Applied Sciences},
+  title        = {COMPARATIVE STUDY OF CLOUD PLATFORMS -MICROSOFT AZURE, GOOGLE CLOUD PLATFORMAND AMAZON EC2},
+}
+
+@Thesis{Pinto2018,
+  author      = {Pinto, Diogo Manuel Ribeiro and Lopes, Nuno and Silva, Joaquim},
+  date        = {2018-01-01},
+  institution = {AIS eLibrary},
+  title       = {Study and comparison of automatic learning tools:TensorFlow with Google Cloud and AzureMachine Learning},
+  type        = {resreport},
+}
+
+@Article{Madhuri2016,
+  author       = {Madhuri, T & Sowjanya, P},
+  date         = {2016-03-01},
+  journaltitle = {International Journal of Innovative Research in Science,Engineering and Technology},
+  title        = {Microsoft Azure v/s Amazon AWS CloudServices: A Comparative Study},
+  issue        = {3},
+  url          = {http://www.ijirset.com/upload/2016/march/98_24_Microsoft.pdf},
+  urldate      = {2022-10-09},
+  volume       = {5},
+}
+
+@Article{Olugbenga2022,
+  author       = {Motunrrayo Olugbenga},
+  date         = {2022-11-14},
+  journaltitle = {MLOps Blog},
+  title        = {Balanced Accuracy: When Should You Use It?},
+}
+
+@WWW{2022,
+  date  = {2022-12-22},
+  title = {What is ETL},
+  url   = {https://cloud.google.com/learn/what-is-etl},
+}
+
+@InProceedings{Diouf2018,
+  author    = {Papa Senghane Diouf and Aliou Boly and Samba Ndiaye},
+  booktitle = {2018 {IEEE} International Conference on Innovative Research and Development ({ICIRD})},
+  date      = {2018-05},
+  title     = {Variety of data in the {ETL} processes in the cloud: State of the art},
+  doi       = {10.1109/icird.2018.8376308},
+  publisher = {{IEEE}},
+}
+
+@Article{He2021,
+  author       = {Xin He and Kaiyong Zhao and Xiaowen Chu},
+  date         = {2021-01},
+  journaltitle = {Knowledge-Based Systems},
+  title        = {{AutoML}: A survey of the state-of-the-art},
+  doi          = {10.1016/j.knosys.2020.106622},
+  pages        = {106622},
+  volume       = {212},
+  publisher    = {Elsevier {BV}},
+}
+
+@InCollection{Feurer2019,
+  author    = {Matthias Feurer and Frank Hutter},
+  booktitle = {Automated Machine Learning},
+  date      = {2019},
+  title     = {Hyperparameter Optimization},
+  doi       = {10.1007/978-3-030-05318-5_1},
+  pages     = {3--33},
+  publisher = {Springer International Publishing},
+}
+
+@Online{ProjectPro2023,
+  author       = {ProjectPro},
+  date         = {2023-01-13},
+  editor       = {ProjectPro},
+  title        = {Popular Machine Learning Frameworks for Model Training},
+  journaltitle = {ProjectPro},
+}
+
+@Misc{Bahrampour2015,
+  author    = {Bahrampour, Soheil and Ramakrishnan, Naveen and Schott, Lukas and Shah, Mohak},
+  date      = {2015},
+  title     = {Comparative Study of Deep Learning Software Frameworks},
+  doi       = {10.48550/ARXIV.1511.06435},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  keywords  = {Machine Learning (cs.LG), FOS: Computer and information sciences},
+  publisher = {arXiv},
+}
+
+@WWW{AWS2023,
+  author = {AWS},
+  date   = {2023-01-13},
+  editor = {AWS},
+  title  = {Amazon SageMaker Features},
+  url    = {https://docs.aws.amazon.com/sagemaker/latest/dg/whatis-features-alpha.html},
+}
+
+@Article{Olah2018,
+  author       = {Chris Olah},
+  date         = {2018-03-12},
+  journaltitle = {The Keyword},
+  title        = {Understanding the inner workings of neural networks},
+}
+
+@Article{Pragati2023,
+  author       = {Baheti Pragati},
+  date         = {2023-01-03},
+  journaltitle = {V7},
+  title        = {Activation Functions in Neural Networks},
+  url          = {https://www.v7labs.com/blog/neural-networks-activation-functions},
+  urldate      = {2023-01-14},
+}
+
+@Article{Krizhevsky2017,
+  author       = {Alex Krizhevsky and Ilya Sutskever and Geoffrey E. Hinton},
+  date         = {2017-05},
+  journaltitle = {Communications of the {ACM}},
+  title        = {{ImageNet} classification with deep convolutional neural networks},
+  doi          = {10.1145/3065386},
+  number       = {6},
+  pages        = {84--90},
+  volume       = {60},
+  publisher    = {Association for Computing Machinery ({ACM})},
+}
+
+@Article{LeCun2015,
+  author       = {Yann LeCun and Yoshua Bengio and Geoffrey Hinton},
+  date         = {2015-05},
+  journaltitle = {Nature},
+  title        = {Deep learning},
+  doi          = {10.1038/nature14539},
+  number       = {7553},
+  pages        = {436--444},
+  volume       = {521},
+  publisher    = {Springer Science and Business Media {LLC}},
+}
+
+@Article{McCulloch1943,
+  author       = {Warren S. McCulloch and Walter Pitts},
+  date         = {1943-12},
+  journaltitle = {The Bulletin of Mathematical Biophysics},
+  title        = {A logical calculus of the ideas immanent in nervous activity},
+  doi          = {10.1007/bf02478259},
+  number       = {4},
+  pages        = {115--133},
+  volume       = {5},
+  publisher    = {Springer Science and Business Media {LLC}},
+}
+
+@Article{Ravi2017,
+  author       = {Daniele Ravi and Charence Wong and Fani Deligianni and Melissa Berthelot and Javier Andreu-Perez and Benny Lo and Guang-Zhong Yang},
+  date         = {2017-01},
+  journaltitle = {{IEEE} Journal of Biomedical and Health Informatics},
+  title        = {Deep Learning for Health Informatics},
+  doi          = {10.1109/jbhi.2016.2636665},
+  number       = {1},
+  pages        = {4--21},
+  volume       = {21},
+  p

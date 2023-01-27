@@ -12,11 +12,13 @@
 %% onderzoeksvraag.
 
 \section{Dataset}
-Voor het vergelijken van de 3 aanbieders van MLaaS wordt er gebruik gemaakt van de constructalia dataset. Dit is een bestaand PIM-systeem van ArchelorMittal met ongeveer 40000 entiteiten die met de hand getagd werden. Daarvan zijn er 1020 pdf's, die de tag 'internationaal' hebben, wat er op wijst dat de pdf's in het Engels zijn. Dit zodat het model niet moet rekening houden met meerdere talen. Van de 1000 files konden er 702 succesvol worden omgezet naar tekst. Hiervoor werd er gebruik gemaakt van de python package PyPDF2. Vervolgens werden er 2 types output gegenereerd :
+Voor het vergelijken van de 3 aanbieders van MLaaS wordt er gebruik gemaakt van de Constructalia dataset. Dit is een bestaand PIM-systeem van Arcelor Mittal met ongeveer 40000 entiteiten die met de hand getagd werden. Daarvan zijn er 1020 pdf's, die de tag 'internationaal' hebben, wat er op wijst dat de pdf's in het Engels zijn. Dit zodat het model geen rekening moet  houden met meerdere talen. Van de 1020 files konden er 702 succesvol worden omgezet naar tekst. Hiervoor werd er gebruik gemaakt van de python package PyPDF2. Vervolgens werden er 2 types output gegenereerd :
 \begin{itemize}
-    \item Een directory met daarin een json-bestand per PDF, die alle info over de PDF omvatte. De belangrijkste velden van deze json-objecten zijn 'data.filename', 'data.text' en 'type\_tags'.
+    \item Een folder met daarin een json-bestand per PDF, dat alle info over de PDF omvatte. De belangrijkste velden van deze json-objecten zijn 'data.filename', 'data.text' en 'type\_tags'.
     \item een CSV-bestand met kolommen 'type\_tag', 'file\_name' en 'file\_content' 
 \end{itemize}
+
+Er moeten 2 types output worden gegenereerd, omdat niet alle providers json-bestanden ondersteunen. 
 
 Omdat we de leercurves van de verschillende platformen willen vergelijken (voorspellend vermogen in functie van het aantal records dat gebruikt wordt als trainingsdataset) voorzien we 5 verschillende trainingsdatasets: 
 \begin{itemize}
@@ -27,26 +29,43 @@ Omdat we de leercurves van de verschillende platformen willen vergelijken (voors
     \item 100\% van de records
 \end{itemize}
 
+Dit gebeurt door (afhankelijk van de groote van de traingingsdataset die gemaakt moet worden) steeds een gelijk aantal records over te slaan vooraleer een record toe te voegen aan de trainingsdataset, bijvoorbeeld voor 50\% moet er telkens 1 records worden overgeslaan, voor 30\% 2 (maar dan wel op tijd stoppen zodat er geen 33\% komt), voor 20\% 4 en voor 10\% 9.
+
 
 \section{Keuze tag die voorspeld moet worden}
-De providers worden vergeleken op basis van de nauwkeurigheid en de gewogen nauwkeurigheid van de modellen die ze genereren. Vooraleer dat kan gebeuren moet er worden beslist welke tag de modellen moeten voorspellen, hiervoor zijn er een aantal factoren waar rekening mee moet worden gehouden: 
+De providers worden vergeleken op basis van de nauwkeurigheid en de gewogen nauwkeurigheid van de modellen die ze genereren. Vooraleer dat kan gebeuren moet er worden beslist welke tag de modellen moeten voorspellen. Hierbij moet rekening worden gehouden met een aantal factoren:
 \begin{itemize}
-    \item relevantie PIMLayer context: Niet alle tags uit de constructalia-dataset zijn even relevant voor het onderzoek omdat ze zeer specifiek gericht zijn op constructalia. Andere tags zijn dan weer zeer relevant voor PIMLayer aangezien de dataset wel afkomstig is uit een PIM-systeem.
-    \item pluraliteit: bij sommige tags is het mogelijk om meerdere tags te hebben. Dit maakt het moeilijker voor de modellen om een correcte nauwkeurigheid te berekenen. 
+    \item Relevantie PIMLayer context: Niet alle tags uit de constructalia-dataset zijn even relevant voor het onderzoek omdat ze zeer specifiek gericht zijn op constructalia. Andere tags zijn dan weer zeer relevant voor PIMLayer aangezien de dataset wel afkomstig is uit een PIM-systeem.
+    \item Pluraliteit: bij sommige tags is het mogelijk om meerdere instanties te hebben. Dit maakt het moeilijker voor de modellen om een correcte nauwkeurigheid te berekenen. 
 \end{itemize}
 
-\subsection{application\_tag}
-De eerste tag die werd uitgeprobeerd (in AWS SageMaker) was de application\_tag, dit kwam vooral omdat deze tag zeer relevant is in context van PIMLayer. Deze tag geeft aan voor welk type gebouw of constructie het bestand relevant is. Dit is een tag waarvoor er meerdere tags bij 1 bestand hangen. In een eerste poging werden de tags als een array gevoed als trainingsdata. Het beste model behaalde hier een nauwkeurigheid van 55\%, maar deze nauwkeurigheid geeft geen volledig beeld van wat het voorspellend vermogen van dat model was, als het model een array voorspelde waar 1 van de effectieve tags niet inzat, dan werd dit als fout aangerekend, terwijl het model wel al een deel van de tags juist had voorspeld. Om te verhelpen dat het model een array van tags zou teruggeven, werd de trainingsdataset omgevormd zodat er voor elke tag in de array een apart record was met alleen die tag (maar dus met dezelfde file\_name en zelfde file\_content waardes). Hier haalde het beste model een nauwkeurigheid van  39\%. Logisch natuurlijk, want stel dat een file 3 verschillende tags heeft, dan geeft het model maar 1 tag terug (zo is het getraind) maar als de test-data toevallig 1 van de andere 2 tags heeft, dan rekent het model zichzelf een fout aan terwijl het juist was. 
+\subsection{Application\_tag}
+De eerste tag die werd uitgeprobeerd (in AWS SageMaker) was de application\_tag. Dit kwam vooral omdat deze tag zeer relevant is in context van PIMLayer. Deze tag geeft aan voor welk type gebouw of constructie het bestand relevant is. Dit is een tag waarvoor er meerdere tags bij 1 bestand hangen. In een eerste poging werden de tags als een array gevoed als trainingsdata. Het beste model behaalde hier een nauwkeurigheid van 55\%, maar deze nauwkeurigheid geeft geen volledig beeld van wat het voorspellend vermogen van dat model was, als het model een array voorspelde waar 1 van de effectieve tags niet inzat, dan werd dit als fout aangerekend, terwijl het model wel al een deel van de tags juist had voorspeld. Om te verhelpen dat het model een array van tags zou teruggeven, werd de trainingsdataset omgevormd zodat er voor elke tag in de array een apart record was met alleen die tag (maar dus met dezelfde file\_name en zelfde file\_content waardes). Hier haalde het beste model een nauwkeurigheid van  39\%. Logisch natuurlijk, want stel dat een file 3 verschillende tags heeft, dan geeft het model maar 1 tag terug (zo is het getraind) maar als de test-data toevallig 1 van de andere 2 tags heeft, dan rekent het model zichzelf een fout aan terwijl het juist was. 
 
-\subsection{type\_tag}
+\subsection{Type\_tag}
 De tweede tag die werd getest was de type\_tag. Deze tag geeft aan over welk type document het gaat, bijvoorbeeld: `brochure`, `Certificaat`, `Nieuwsartikel`, ... Deze tag werd vooral gekozen omdat hij zowel relevant is in PIMLayer context als het feit dat er altijd maar 1 tag per bestand is. Hierdoor vielen de problemen met de application\_tag weg. Het beste model van de eerste testrun met type\_tag als te voorspellen waarde behaalde een nauwkeurigheid van 88\%. Er werd dan ook gekozen om deze parameter te gebruiken. 
 
-\section{AWS SageMaker}
-De eerst provider die werd uitgtest was AWS (Amazon), daardoor is er hier een extra sectie : keuze tag die voorspeld moet worden. 
-\subsection{Opzet}
+\subsection{Keuze AutoML}
+Naast de keuze voor de te voorspellen tag is het ook de moeite waard om de keuze voor AutoML te staven. 
+PIMLayer biedt PIM systemen aan die door de klant zelf kunnen worden aangepast aan eigen noden. Het is echter wel de bedoeling dat voor elke klant wordt vertrokken vanuit hetzelfde basisproduct (Product as a Service of PaaS), het is niet de bedoeling dat er voor 1 specifieke klant custom features worden gebouwd. Een van de dingen die door de klant moet worden geconfigureerd (tijdens het onboarding proces) is de eigen taxonomie structuur, deze kan verschillen van klant tot klant. Zo zal een verkoper van bedlinnen een andere taxonomie structuur hebben dan de taxonomie structuur van een verkoper van kinderspeelgoed. Dat wil zeggen dat de modellen zo dynamisch mogelijk moeten worden kunnen opgebouwd, getraind en gedeployed, AutoML stelt gebruikers in staat om precies dat te doen. Het sluit dus niet alleen nauw aan bij de use case, het elimineert ook de nood aan meerdere data- of Machine Learning experts, die anders nog door PIMLayer zou moeten worden aangeworven. Door gebruik te maken van AutoML zou de aanwerving van 1 data- of Machine Learning expert kunnen volstaan om de AutoML workflow te implementeren in PIMLayer. 
+
+Nu de datasets zijn opgebouwd, en er is besloten welke parameter de modellen moeten voorspellen,  is het tijd om voor elke provider een MLaaS instantie op te zetten. Dit proces zal voor elke provider in een appart hoofdstuk worden besproken. 
+Vervolgens zal er, door gebruik te maken van de AutoML functionaliteit van de providers, voor elke dataset een Machine Learning model worden gegenereerd. Elk hoofdstuk zal hetzelfde zijn opgebouwd: 
+\begin{enumerate}
+    \item Opzet
+    \item Opladen van data
+    \item Model trainen
+    \item Prijs
+    \item Resultaten
+\end{enumerate}
+Daarna kunnen de verschillende providers vergeleken worden op basis van de resultaten van de modellen die werden gegenereerd en de prijs. 
+
+\chapter{AWS SageMaker}
+De eerste provider die werd uitgetest was AWS (Amazon), daardoor is er hier een extra sectie : keuze tag die voorspeld moet worden. 
+\section{Opzet}
 De eerste stap van het opzetten van een AWs SageMaker omgeving is zich registreren, er dienen een paar basis gegevens worden ingevuld, vervolgens moet er (verplicht) een creditcard aan het account verbonden worden waar tijdelijk 1 euro van wordt afgehouden om de identiteit en legitimiteit van de creditcard te bevestigen. Nadat de account is opgezet heeft men toegang tot alle verschillende services die Amazon aanbiedt. Er is ook de mogelijkheid om organisaties op te zetten , waar er dan collega's kunnen aan toegevoegd worden.
 
-Het opzetten van een SageMaker instance verloopt ook vrij vlot, al duurt het wel een uur vooraleer de service kan worden gebruikt. 
+Het opzetten van een SageMaker instance verloopt ook vrij vlot, al duurt het wel een uur voor de service kan worden gebruikt. 
 
 Eens de instance is opgezet kan er worden gekozen voor verschillende work-flows: 
 \begin{itemize}
@@ -57,26 +76,26 @@ Eens de instance is opgezet kan er worden gekozen voor verschillende work-flows:
 
 Bij het opzetten van een SageMaker instance wordt er ook automatisch een S3-bucket (storage service van Amazon) opgezet waar de trainingsdata kan worden opgeladen en waar de getrainde modellen kunnen worden naar weggeschreven. 
 
-\subsection{Opladen van data}
-Voor het opladen van data moet er een data-pipeline worden opgezet, hiervoor zijn er verschillende opties:
+\section{Opladen van data}
+Voor het opladen van data moet er een data-pipeline worden opgezet. Hiervoor zijn er verschillende opties:
 \begin{itemize}
-    \item \textbf{SageMaker Data Wrangler}: dit is een AWS-service die de complexiteit verwerkingsproces van de data reduceert tot een visuele interface. Het kan zowel gebruikt worden voor het preprocessen van data al het voorbereiden van de data voor training en voor het trekken uit conclusies uit de data.
+    \item \textbf{SageMaker Data Wrangler}: dit is een AWS-service die het complexe verwerkingsproces van de data reduceert tot een visuele interface. Het kan zowel gebruikt worden voor het preprocessen van data als het voorbereiden van de data voor training, en eveneens voor het trekken van conclusies uit de data.
     \item  \textbf{SageMaker Studio notebooks}: binnenin de SageMaker omgeving is er ook een ontwikkelingsomgeving die (onder andere) notebooks ondersteunt. In Studio kunnen er custom dataflows worden gebouwd in Python en kan er dus ook gebruik worden gemaakt van verschillende data-processing packages, zoals pandas en numpy.
-    \item \textbf{Amazon Glue}:  Amazon Glue is een ETL-service die toelaat om data te extraheren van verschillende bronnen endeze op te laden naar een S3-bucket.
-    \item \textbf{custom scripts}: Er kan natuurlijk ook vanuit een lokale omgeving data worden weggeschreven naar een S3-bucket, op deze manier wordt er maximale controle gehouden over de manier waarop de data wordt verwerkt. 
+    \item \textbf{Amazon Glue}:  Amazon Glue is een ETL-service die toelaat om data te extraheren van verschillende bronnen en deze op te laden naar een S3-bucket.
+    \item \textbf{custom scripts}: Er kan natuurlijk ook vanuit een lokale omgeving data worden weggeschreven naar een S3-bucket. Op deze manier wordt er maximale controle gehouden over de manier waarop de data wordt verwerkt. 
 \end{itemize}
 
- maar de data kan niet rechtstreeks van een lokale PC opgeladen worden binnen SageMaker. Als je gebruik wilt maken van de S3 bucket die automatisch werd aangemaakt dan moet je overschakelen naar de S3 service. 
+ Echter de data kan niet rechtstreeks van een lokale PC opgeladen worden binnen SageMaker. Als je gebruik wilt maken van de S3 bucket die automatisch werd aangemaakt dan moet je overschakelen naar de S3 service. 
 
-\subsection{Model trainen}
-Eens de data-pipeline is opgezet kunnen er modellen worden getrained, de pipeline identificeert welke velden er allemaal bestaan binnen de dataset en kent ze ook een type toe (integer, double, string, ...), deze kunnen door de eindgebruiker nog worden aangepast. Vervolgens moet er worden ingesteld welk deel van de dataset moet worden gebruikt als test-, controle- en trainingsdata-set. Er kan ook worden gekozen hoe de 3 verschillende datasets moeten worden opgebouwd: chronologisch, asynchroon of random. Eens de 3 datasets zijn geconfigureerd moeten we aangeven welk veld of welke kolom er moet worden voorspel door het model. Er kan ook worden ingesteld welk type ML-probleem er moet worden opgelost. Daarna kan het trainingsproces starten, SageMaker genereert 200-model (dit aantal is eveneens instelbaar) waarbij het zijn eigen algoritmes gebruikt om hyper parameters van de modellen aan te passen. Hieruit kan dan het beste model worden uitgekozen. 
+\section{Model trainen}
+Wanneer de data-pipeline is opgezet kunnen er modellen worden getraind, de pipeline identificeert welke velden er allemaal bestaan binnen de dataset en kent ze ook een type toe (integer, double, string, ...), deze kunnen door de eindgebruiker nog worden aangepast. Vervolgens moet er worden ingesteld welk deel van de dataset moet worden gebruikt als test-, controle- en trainingsdata-set. Er kan ook worden gekozen hoe de 3 verschillende datasets moeten worden opgebouwd: chronologisch, asynchroon of random. Eens de 3 datasets zijn geconfigureerd moeten we aangeven welk veld of welke kolom er moet worden voorspeld door het model. Er kan ook worden ingesteld welk type ML-probleem er moet worden opgelost. Daarna kan het trainingsproces starten, SageMaker genereert 200 modellen (dit aantal is eveneens instelbaar) waarbij het zijn eigen algoritmes gebruikt om hyper parameters van de modellen aan te passen. Hieruit kan dan het beste model worden uitgekozen. 
 
-\subsection{Prijs}
-Amazon SageMaker is een pay-as-you-go service, dit betekent dat er alleen betaald moet worden voor de resources die hebt gebruikt. De voornaamste kosten zijn afkomstig van:
+\section{Prijs}
+Amazon SageMaker is een pay-as-you-go service: dit betekent dat  alleen betaald moet worden voor de resources die worden gebruikt. De voornaamste kosten zijn afkomstig van:
 \begin{itemize}
     \item \textbf{Trainingsinstanties}: Er moet worden betaald voor het type en het aantal trainingsinstanties die worden gebruikt om het model te trainen.
     
-    \item \textbf{ Inferentie-instanties}: Als er een model wordt ingezet om voorspellingen te doen, moet er worden betaald voor het type en het aantal nstanties dat gebruikt word om het model te hosten.
+    \item \textbf{ Inferentie-instanties}: Als  een model wordt ingezet om voorspellingen te doen, moet er worden betaald voor het type en het aantal nstanties dat gebruikt wordt om het model te hosten.
     
     \item \textbf{Gegevensopslag}: er moet betaald worden voor de data die in Amazon S3 wordt opgeslagen voor gebruik met SageMaker. Dit omvat de invoergegevens voor training, de uitvoergegevens van training, en alle tussenliggende gegevens die worden gegenereerd tijdens het trainingsproces.
     
@@ -84,43 +103,51 @@ Amazon SageMaker is een pay-as-you-go service, dit betekent dat er alleen betaal
 \end{itemize}
 
 
-\subsection{Resultaten}
-De resultaten van de modellen die door AWS werden gegenereerd, hadden de volgende evaluatie parameters:
+\section{Resultaten}
+De resultaten van de modellen die door AWS werden gegenereerd, kunnen worden gevonden op figuur \ref{AWSResultTable} .
 \begin{center}
-    \begin{tabular} {|c | c | c |}
-        \hline
-        gebruikt percentage dataset & nauwkeurigheid & gewogen nauwkeurigheid \\
-        \hline
-        10\% & 30\% & 41\% \\
-        \hline
-        20\% & 44\% & 47\% \\
-        \hline
-         30\% & 48\% & 60\% \\
-        \hline
-         50\% & 55\% & 88\% \\
-        \hline
-         100\% & 82\% & 94\% \\
-        \hline
-    \end{tabular}
+    \begin{figure}
+        \caption{resultaten AWS}
+        \label{AWSResultTable}
+        \begin{tabular} {|c | c | c |}
+            \hline
+            gebruikt percentage dataset als inputdataset & nauwkeurigheid & gewogen nauwkeurigheid \\
+            \hline
+            10\% & 30\% & 41\% \\
+            \hline
+            20\% & 44\% & 47\% \\
+            \hline
+            30\% & 48\% & 60\% \\
+            \hline
+            50\% & 55\% & 88\% \\
+            \hline
+            100\% & 82\% & 94\% \\
+            \hline
+        \end{tabular}
+    \end{figure}
 \end{center}
+    
 
 
-\section{Azure Machine Learning Studio}
+\chapter{Azure Machine Learning Studio}
 De tweede provider die werd uitgetest was Azure.
-\subsection{Opzet}
-Het opzetten van een Azure Machine Learning Studio is zeer gelijkaardig aan proces van AWS: opnieuw moet er een account worden aangemaakt en een betaalmethode worden gekozen om een gratis Azure account. Vervolgens heeft men toegang tot alle mogelijke services die Azure aanbiedt. Ten slotte kan er een nieuwe Azure Machine Learning Studio instantie worden aangemaakt. 
-\subsection{Opladen van data}
-Bij het aanmaken van een nieuwe Azure Machine Learning Studio instantie, wordt er, net als bij AWS SageMaker, automatisch een BLOB resource aangemaakt waar data naar kan worden opgeladen. Niet alle bestandstypes worden ondersteund door Azure, json-directories kunnen wel worden opgeladen maar niet worden omgezet naar een MLTable. MLTables zijn de dataresources die kunnen worden gebruikt om een modle te trainen. Deze kunnen zowel lokaal worden aangemaakt, door gebruik te maken van python packages of door de azure CLI, of in de GUI van Azure Machine Learning Studio. Om onze dataset om te zetten naar een MLTable werd er gebruik gemaakt van een csv-bestand met dezelfde gegevens als de json-bestanden. 
-\subsection{Model trainen}
-Nadat een MLTable is aangemaakt kan er een autoML job worden opgestart. Eerst moet er een MLTable gekozen worden, en er moet aangegeven worden welke kolom het model moet voorspellen. Er moet ook meegegeven worden over welk type ML-probleem het gaat en welke parameter er moet worden geoptimaliseerd. In de experimenten werd er telkens gekozen voor de gewogen nauwkeurigheid parameter, aangezien de dataset niet continu is verdeeld. Daarna moeten we configureren hoe de modellen moeten worden gegenereerd, eerst moet er aangegeven worden welke computing resource hiervoor mag worden gebruikt. Hierbij wordt telkens het tarief per uur weergegeven. Tenslotte moet er ook worden ingesteld hoe de modellen worden gegenereerd, standaard wordt er gekozen voor volgende methode : gedurende 2 uur worden er modellen gegeneerd waarbij de hyperparameters worden aangepast om de gekozen parameter te optimaliseren, als er wordt gemerkt dat de gekozen parameter niet meer verbetert, wordt het proces stopgezet en wordt het beste model teruggegeven. 
-\subsection{Prijs}
-Azure Machine Learning Studio is, net zoals AWS SageMaker, een pay-as-you-go service, dezelfde factoren als bij AWS worden eveneens in rekening gebracht met het verschil dat er bij Azure kan worden geconfigureerd op welke resource er wordt gebruikt per opdracht, dit heeft vooral invloed op de trainingsinstanties en inferentie-instanties. 
-\subsection{Resultaten}
-De resultaten van de modellen die door Azure werden gegenereerd, hadden de volgende evaluatie parameters:
+\section{Opzet}
+Het opzetten van een Azure Machine Learning Studio is zeer gelijkaardig aan het proces van AWS: opnieuw moet  een account worden aangemaakt en een betaalmethode worden gekozen voor een gratis Azure account. Vervolgens heeft men toegang tot alle mogelijke services die Azure aanbiedt. Ten slotte kan er een nieuwe Azure Machine Learning Studio instantie worden aangemaakt. 
+\section{Opladen van data}
+Bij het aanmaken van een nieuwe Azure Machine Learning Studio instantie, wordt er, net als bij AWS SageMaker, automatisch een BLOB resource aangemaakt waar data naar kan worden opgeladen. Niet alle bestandstypes worden ondersteund door Azure, json-directories kunnen wel worden opgeladen maar niet worden omgezet naar een MLTable. MLTables zijn de dataresources die kunnen worden gebruikt om een model te trainen. Deze kunnen zowel lokaal worden aangemaakt, door gebruik te maken van python packages of door de azure CLI, of in de GUI van Azure Machine Learning Studio. Om onze dataset om te zetten naar een MLTable werd er gebruik gemaakt van een csv-bestand met dezelfde gegevens als de json-bestanden. 
+\section{Model trainen}
+Nadat een MLTable is aangemaakt kan er een autoML job worden opgestart. Eerst moet een MLTable gekozen worden, en moet aangegeven worden welke kolom het model moet voorspellen. Er moet ook meegegeven worden over welk type ML-probleem het gaat en welke parameter  moet worden geoptimaliseerd. In de experimenten werd  telkens gekozen voor de gewogen nauwkeurigheid parameter, aangezien de type\_tag niet continu is verdeeld is binnen de dataset. Daarna moeten we configureren hoe de modellen moeten worden gegenereerd. Eerst moet er aangegeven worden welke computing resource hiervoor mag worden gebruikt. Hierbij wordt telkens het tarief per uur weergegeven. Tenslotte moet  ook worden ingesteld hoe de modellen worden gegenereerd, standaard wordt gekozen voor volgende methode : gedurende 2 uur worden er modellen gegeneerd waarbij de hyperparameters worden aangepast om de gekozen parameter te optimaliseren, als er wordt gemerkt dat de gekozen parameter niet meer verbetert, wordt het proces stopgezet en wordt het beste model teruggegeven. 
+\section{Prijs}
+Azure Machine Learning Studio is, net zoals AWS SageMaker, een pay-as-you-go service, dezelfde factoren als bij AWS worden eveneens in rekening gebracht. Het grootste verschil is dat er bij Azure kan worden geconfigureerd welke resource er wordt gebruikt per opdracht. Dit heeft vooral invloed op de trainingsinstanties en inferentie-instanties. 
+\section{Resultaten}
+De resultaten van de modellen die door Azure werden gegenereerd, kunnen worden gevonden op figuur \ref{AzureResultTable}:
+ \begin{figure}[h]
+    \caption{resultaten Azure}
+    \label{AzureResultTable}
 \begin{center}
     \begin{tabular} {|c | c | c |}
         \hline
-        gebruikt percentage dataset & nauwkeurigheid & gewogen nauwkeurigheid \\
+        gebruikt percentage dataset als inputdataset & nauwkeurigheid & gewogen nauwkeurigheid \\
         \hline
         10\% & 43\% & 47\% \\
         \hline
@@ -134,7 +161,8 @@ De resultaten van de modellen die door Azure werden gegenereerd, hadden de volge
         \hline
     \end{tabular}
 \end{center}
-\section{Google Cloud Platform}
-Google Cloud Platform kan pas modellen trainen van datasets die groter zijn dan 1000 records. Hierdoor is het niet geschikt voor de specifieke use-case van PIMLayer. Er werden dan ook geen testen uitgevoerd voor deze provider.
+\end{figure}
+\chapter{Google Cloud Platform}
+Google Cloud Platform kan pas modellen trainen van datasets die groter zijn dan 1000 records. Hierdoor is het niet geschikt voor de specifieke use-case van PIMLayer. Er werden dan ook geen testen uitgevoerd met deze provider.
 
 

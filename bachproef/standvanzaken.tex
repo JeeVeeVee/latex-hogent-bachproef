@@ -6,97 +6,324 @@
 % dit hoofdstuk past binnen het geheel van de bachelorproef. Geef in het
 % bijzonder aan wat de link is met het vorige en volgende hoofdstuk.
 
-% Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
+
+\section{Product Information Management}
+Het belang van Product Information Management (PIM) stijgt door het alsmaar verhoogde niveau van de technische complexiteit  van producten. Die complexiteit zorgt er namelijk voor dat er een overvloed aan informatie ontstaat, die bovendien moeilijk up-to-date kan worden gehouden \autocite{Fr_mling_2006}. Vaak combineert een PIM-systeem data uit verschillende andere systemen en databronnen (zoals ERP's, databanken, excels, etc.) en bundelt het die tot een 'single source of truth' die bovendien altijd up-to-date is. De data van het PIM-systeem kan dan worden geconsumeerd door brand portals, product sheets, een webshop, ...
 \section{Machine Learning}
-\textcite{Hu2013} beschrijft het doel van machine learning als het ontwerpen en ontwikkelen van algoritmes die systemen toelaten om op basis van data, ervaring en training zichzelf aan te passen. 
+\textcite{Hu2013} beschrijven het doel van machine learning als het ontwerpen en ontwikkelen van algoritmes die systemen toelaten om op basis van data, ervaring en training zichzelf aan te passen. 
 \subsection{Algoritmes}
-Machine learning algoritmes kunnen worden verdeeld op basis van hoe hun proces er uitziet :
+Machine learning algoritmes kunnen worden onderscheiden op basis van hoe hun proces er uitziet:
 \begin{itemize}
-    \item \textbf{Supervised Learning}: het algoritme krijgt een gelabelde dataset om te trainen, op basis daarvan wordt een model opgebouwd dat niet gelabelde datasets kan classificeren. Achteraf moet een 'supervisor' hoeveel procent van de toegekende labels correct waren. 
+    \item \textbf{Supervised Learning}: het algoritme krijgt een gelabelde dataset om te trainen. Op basis daarvan wordt een model opgebouwd dat niet gelabelde datasets kan classificeren. Achteraf moet een 'supervisor' beoordelen hoeveel procent van de toegekende labels correct waren. 
     \item \textbf{Unsupervised learning}: het algoritme vertrekt vanuit een niet gelabelde dataset en gaat zelf op zoek naar patronen in de dataset. Op basis van de patronen maakt het algoritme zelf een classificatie.
-    \item \textbf{Semi-supervised learning}: een hybride van supervised en unsupervised learning.
-    \item \textbf{Reinforcement learing}: het algoritme leert hoe het zich moet gedragen op basis van een gegeven feit. Elke actie heeft een invloed op het model, dat op zijn beurt kan terugkoppelen naar het model om zo het gedrag te beïnvloeden.
-    \item \textbf{Transduction}: gelijkaardig aan supervised learing, maar genereert niet per se een functie, het probeert de nieuwe outputs te voorspellen op basis van training inputs, training outputs en nieuwe inputs.
+    \item \textbf{Semi-supervised learning}: een hybride vorm van supervised en unsupervised learning.
+    \item \textbf{Reinforcement learning}: het algoritme leert hoe het zich moet gedragen op basis van een gegeven feit. Elke actie heeft een invloed op het algoritme, dat op zijn beurt kan terugkoppelen naar het model om zo het gedrag te beïnvloeden.
+    \item \textbf{Transduction}: gelijkaardig aan supervised learing, maar genereert niet per se een functie, er kunnen bijvoorbeeld ook beslissingsbomen worden gegenereerd.
     \item \textbf{Learning to learn}: het algoritme leert zichzelf gedrag aan gebaseerd op vorige ervaring.
 \end{itemize}
 \autocite{Zhang2010}
 
-
-\subsection{Machine Learning as a Service (MLaaS)}
-MLaaS is de verzameltern voor de verzameling van cloud-based platforms die machine learing gebruiken om oplossingen aan te bieden. \autocite{Onose2022}. Deze oplossing kunnen meerdere vormen aannemen: 
-\begin{itemize}
-    \item voorspellende analyse voor verschillende use cases
-    \item trainen en afstellen van een model
-    \item implemenatie van een model
-\end{itemize}
-
-MLaaS heeft ook een aantal gebreken, zo heb je zelf niet altijd controle over de gebruikte algoritmes en parameters en het is niet geschikt voor gevoelige data.
-
-\subsection{ETL-services}
-ETL (Extract-Transform-Load)  processen kunnen worden gebruikt om data uit verschillende bronnen te bundelen in een enkele databank. ETL-services zijn services die toe laten om om deze processen uit te voeren en aan te passen naar eigen voorkeuren. Ze kunnen onder andere worden gebruikt in Data warehousing, Machine learning, Cloud migration en IoT data integretion. \autocite{Diouf2018}
-
 \subsection{Machine Learning vraagstukken}
-Machine Learning (ML) kan worden gebruikt voor het oplossen van 2 types problemen : 
+Machine Learning (ML) kan onder andere worden gebruikt voor het oplossen van 2 types problemen : 
 \begin{itemize}
     \item Classificatie
     \item Regressie
 \end{itemize}  
 
-De classificatie problemen kunnen op hun beurt nog worden in binaire en multiclass classificatie problemen, aan de hand van het aantal klasses dat de oplossing moet kunnen onderscheiden.  \autocite{Olugbenga2022}
+De classificatie problemen kunnen op hun beurt nog worden opgesplitst in binaire en multiclass classificatie problemen, aan de hand van het aantal klassen dat de oplossing moet kunnen onderscheiden \autocite{Olugbenga2022}.
+
+\subsection{Training}
+Om een Machine Learning model te trainen is er een, al dan niet gelabelde, dataset nodig. \textcite{Banko2001} toonden aan dat zeer verschillende Machine Learning algoritmes gelijkaardige resultaten konden voorleggen eens de dataset die gebruikt werd om ze te trainen groot genoeg werd, al mag er niet worden vergeten dat heel grote datasets vaak duur en moeilijk te verkrijgen zijn.  Er zijn een aantal valkuilen bij het kiezen van een dataset:
+\begin{itemize}[]
+    \item te weinig data
+    \item niet representatieve data 
+    \item data van slechte kwaliteit (errors, extreme gevallen)
+    \item irrelevante features
+    \item overfitting
+\end{itemize}
+\autocite{Geron}
+
+\subsubsection{Cross-validation}
+Cross-validation is een resampling methode die wordt gebruikt om in te schatten wat het voorspellend vermogen van een model zal zijn (als het getraind wordt met een bepaalde dataset)en om de hyperparameters van een model aan te passen (op basis van de dataset waarop het model wordt getraind). Hierbij wordt een dataset opgesplitst in k datasets die folds worden genoemd. Vervolgens wordt het model getraind door k-1 folds te gebruiken en de overgebleven fold te gebruiken als testdataset. Dit proces wordt vervolgens k keer herhaald tot elke fold 1 keer is gebruikt als testdataset.
+Deze techniek is handig om de variantie in de prestatieschatting te verminderen, omdat het een meer robuuste maatstaf is voor de prestaties van het model op ongeziene gegevens \autocite{Daniel2019}.
+
 \subsection{Evaluatie parameters}
-\subsubsection{Verwarrings matrix}
-Een tool die meer inzicht kan geven in de performantie van een ML-model is een verwarrings matrix, dit is een N x N matrix, waarbij N het aantal klasses is dat het model moet kunnen onderscheiden.  De kolommen stellen de voorspellingen van het ML-model voor en de rijen de realiteit: 
+De enige manier om te weten of een model effectief voorspellend vermogen heeft is door het te confronteren met nieuwe gevallen en te kijken naar wat er gebeurt. Om dit te doen kan de dataset worden opgesplitst in 2 verschillende sets : een trainingsdataset en een testset of validatieset. Er zijn verschillende manieren om dit te doen: random, eerste X records, laatste X records, ... De error-ratio die het model maakt op de test set wordt de generalisatie error genoemd terwijl de error-ratio tijdens het trainingsproces de trainingerror genoemd wordt. Als de trainingerror lager is dan de generalisatie error, kan dit er op wijzen dat er sprake is van overfitting in de trainingsdataset.\\
+Het is een algemene regel om 80\% van de dataset te gebruiken als trainingsdataset en de overige 20\% als testdataset, al kan dit ook afhangen van de grootte van de originele dataset \autocite{Geron}. 
+
+\subsubsection{Verwarringsmatrix}
+Een tool die meer inzicht kan geven in de performantie van een ML-model is een verwarringsmatrix: dit is een N x N matrix, waarbij N het aantal klassen is dat het model moet kunnen onderscheiden.  De kolommen stellen de voorspellingen van het ML-model voor en de rijen staan voor de realiteit, een voorbeeld hiervan kan worden gevonden op figuur 2.1.
 \begin{center}
-    \begin{tabular} {|c | c | c |}
-        \hline
-        & positive & negative \\
-        \hline
-       positive & TP & FN \\
-        \hline
-         negative & FP  & TN \\
-        \hline
-    \end{tabular}
+    \begin{figure}
+        \caption{verwarringsmatrix voor 2 mogelijke uitkomsten: positief en negatief}}
+    \label{confusionmatrixexample}}
+\begin{tabular} {|c | c | c |}
+    
+    \hline
+    & positief & negatief \\
+    \hline
+    positief & TP & FN \\
+    \hline
+    negatief & FP  & TN \\
+    \hline
+\end{tabular}
+\end{figure}
+
 \end{center}
-Hier kunnen we 4 verschillende gevallen onderscheiden : 
+Hier kunnen we 4 verschillende gevallen onderscheiden: 
 \begin{itemize}
-    \item TP- true positive : het model voorspelt een positieve waarde, wat overeenkomt met de realiteit
-    \item TN - true negative : het model voorspelt een negatieve waarde, wat overeenkomt met de realiteit
-    \item FP - false positive : het model voorspelt een positieve waarde, wat niet overeenkomt met de realiteit
-    \item FN - false negative : het model voorspelt een negatieve waarde, wat niet overeenkomt met de realiteit
+\item TP- true positive : het model voorspelt een positieve waarde, wat overeenkomt met de realiteit
+\item TN - true negative : het model voorspelt een negatieve waarde, wat overeenkomt met de realiteit
+\item FP - false positive : het model voorspelt een positieve waarde, wat niet overeenkomt met de realiteit
+\item FN - false negative : het model voorspelt een negatieve waarde, wat niet overeenkomt met de realiteit
 \end{itemize}
 
 \subsubsection{Nauwkeurigheid}
-De nauwkeurigheid van een model beschrijft welk deel van de voorspellingen van het model juist zijn. Het aantal correcte voorspellingen gedeeld door het totale aantal voorspellingen. De formule voor nauwkeurigheid kan ook worden uitgedrukt met parameters uit de verwarringsmatrix : 
+De nauwkeurigheid van een model beschrijft welk deel van de voorspellingen van het model juist zijn: het aantal correcte voorspellingen gedeeld door het totale aantal voorspellingen. De formule voor nauwkeurigheid kan ook worden uitgedrukt met parameters uit de verwarringsmatrix: 
 \[Nauwkeurigheid = (TP + TN) / (TP + FN +FP + TN)\]
 
 \subsubsection{Gevoeligheid}
-De gevoeligheid van een model geeft aan welk deel van alle positieve gevallen door het model juist werden voorspeld, ofwel : 
-\[Gevoeligheid = TP / (TP / FN) )\]
+De gevoeligheid van een model geeft aan welk deel van alle positieve gevallen door het model juist werden voorspeld, ofwel: 
+\[Gevoeligheid = TP / (TP + FN) \]
 
 \subsubsection{Precisie}
-Precisie van een model geeft aan welk deel van alle positieve voorspellingen van het model juist waren, ofwel : 
-\[Gevoeligheid = TP / (TP / FP) )\]
+Precisie van een model geeft aan welk deel van alle positieve voorspellingen van het model juist waren, ofwel: 
+\[Gevoeligheid = TP / (TP + FP) \]
 
 \subsubsection{Gewogen nauwkeurigheid}
-Beschouw volgende verwarringmatrix : 
+Beschouw volgende verwarringsmatrix: 
 \begin{center}
-   \begin{tabular} {|c | c | c |}
-       \hline
-       & positive & negative \\
-       \hline
-       positive & 20 & 70 \\
-       \hline
-       negative & 30  & 5000 \\
-       \hline
-   \end{tabular}
+\begin{tabular} {|c | c | c |}
+\hline
+& positive & negative \\
+\hline
+positive & 20 & 70 \\
+\hline
+negative & 30  & 5000 \\
+\hline
+\end{tabular}
 \end{center}
 
-Als de nauwkeurigheid van het model wordt berekend op basis van deze matrix dan bekomen we een waarde van {\~0.9805}\}. Deze score is hoog, terwijl het model slechts 22\% van de positieve gevallen uit juist beoordeeld. De nauwkeurigheid van het model is alsnog vrij hoog omdat de negatieve  waarden oververtegendwoordigd zijn in de reële cases. Voor datasets die niet gebalanceerd zijn kan er gebruik worden gemaakt van de gewogen nauwkeurigheid. Deze neemt het gemiddelde van de precisie en gevoeligheid van het model en houdt dus wel rekening met de verhoudingen binnen de dataset, oftewel : 
-\[Gewogen Nauwkeurigheid = Gevoeligheid + Precisie / 2 )\]
-
+Als de nauwkeurigheid van het model wordt berekend op basis van deze matrix, dan bekomen we een waarde van {\~0.9805\}. Deze score is hoog, terwijl het model slechts 22\% van de positieve gevallen juist beoordeelt. De nauwkeurigheid van het model is alsnog vrij hoog omdat de negatieve  waarden oververtegenwoordigd zijn in de reële cases. Voor datasets die niet gebalanceerd zijn, kan er gebruik worden gemaakt van de gewogen nauwkeurigheid. Deze neemt het gemiddelde van de precisie en gevoeligheid van het model en houdt dus wel rekening met de verhoudingen binnen de dataset, oftewel : 
+\[Gewogen Nauwkeurigheid = (Gevoeligheid + Precisie) / 2\]
 \autocite{Olugbenga2022}
 
-\subsection{eerder onderzoek}
+\subsection{Regressie}
+Regressie is een techniek die gebruikt kan worden om relaties tussen onafhankelijke en afhankelijke variabelen te onderzoeken. Het kan worden gebruikt als methode in voorspellende Machine Learning modellen waarin een algoritme wordt gebruikt om continue uitkomsten te voorspellen. Let wel, regressies tonen alleen aan of er effectief een relatie is tussen de onafhankelijke en afhankelijke variabelen. 
+\subsubsection{Simpele lineaire regressie}
+Bij simpele lineaire regressie is er sprake van 1 onafhankelijke variabele, x, het definieert de afhankelijkheid van de afhankelijke variabele y als volgt : 
+\[y = \beta_0 + \beta_1x + \epsilon\]
+Hierbij is \(\beta_0\) een constante, \(\beta_1\) het snijpunt tussen de regressielijn en de y-as en \(\epsilon\) is de random error waarde die gebruikt wordt om het effect van random factoren op het afhankelijke variabele na te bootsen. 
+
+\subsubsection{Multivariate lineaire regressie}
+Multivariate lineaire regressie is zeer gelijkaardig aan simpele lineaire regressie maar werkt met meerdere onafhankelijke variabelen. De relatie tussen de afhankelijke waarde y en n onafhankelijke waarden kan worden beschreven als volgt : 
+\[y = = \beta_0 + \epsilon + \sum_{n=1}^{n} \beta_i x_i \]
+
+\subsubsection{Trainen van een lineair regressie model}
+Om een model te trainen moeten we kijken hoe slecht/goed een model reeds presteert en vervolgens op basis van de afwijking tussen het teruggegeven resultaat en het verwachte resultaat de nodige aanpassingen maken aan het model. Voor een regressie model dat n onafhankelijke heeft kunnen de waarden van \(\beta_0\) tot en met \(\beta_n\) worden aangepast. Hiervoor bestaan er verschillende algoritmes :
+\begin{itemize}
+   \item Gradient Descent: Dit is een eerstegraads optimalisatie-algoritme dat de parameters iteratief bijwerkt in de richting van de negatieve gradient van de foutfunctie ten opzichte van de parameters. Het kan worden gebruikt met verschillende varianten zoals batch gradient descent, stochastische gradient descent (SGD) en mini-batch gradient descent.
+   
+   \item Normale Vergelijking: Het is een analytische methode om de optimale parameters voor het multivariabele lineaire regressiemodel te vinden, deze methode geeft direct de optimale oplossing in één stap.
+   
+   \item Newton-Raphson Methode: Dit is een tweedegraads optimalisatie-algoritme dat de gradiënt  van de foutfunctie en de Hessiaanse matrix (matrix van tweedegraads partiële afgeleiden) gebruikt om de parameters bij te werken.
+   
+   \item Conjugate Gradient: Het is een eerstegraads optimalisatie-algoritme dat de gradiënt van de foutfunctie gebruikt om de parameters bij te werken. Het wordt gebruikt om niet-lineaire functies te optimaliseren en is relatief efficiënt wanneer het aantal parameters groot is.
+   
+   \item Levenberg-Marquardt: Het is een algoritme dat de sterkte van de gradient descent en de Newton-Raphson-methode combineert, het wordt vaak gebruikt om niet-lineaire regressiemodellen te trainen.    
+\end{itemize}
+\autocite{Maulud2020}
+\subsection{Neurale Netwerken}
+Neurale netwerken zijn een krachtige manier om problemen op te lossen, ze laten computers toe om afbeeldingen te begrijpen, spraak te herkennen, teksten te vertalen ... Neurale netwerken maken hiervoor gebruik van een aantal 'lagen' die input omvormen naar output.  Deze lagen bestaan uit verschillende neuronen.  \autocite{Olah2018}.
+Er zijn 3 verschillende soorten lagen : 
+\begin{itemize}[]
+    \item \textbf{input laag} : Deze laag neemt de input van het domein, op deze laag worden er geen bewerkingen gedaan op de data, de neuronen  geven de info alleen door aan de volgende laag.
+    \item \textbf{verbogen lagen} : De neuronen van deze lagen nemen de input van de vorige lagen en geven een outputwaarde door aan de volgende (verborgen) laag. 
+    \item \textbf{output laag} : Deze laag geeft een enkele, finale waarde terug als outputwaarde. 
+\end{itemize}
+
+Een neuron neemt verschillende inputs en geeft 1 output terug, aan die inputs is ook een gewicht verbonden. Deze output is het resultaat van een wiskundige bewerking, voor een neuron met n inputs ziet die functie er zo uit :
+\[s = \[  bias + \sum_{n=1}^{n}gewicht_{n} * inputwaarde_{n}  \]\] 
+Deze functie neemt dus de som van het product van alle inputwaardes en hun bijhorende gewichten en telt daar een bias-waarde bij op. Die bias waarde is een waarde die vasthangt aan het neuron. Als elke neuron nu s zou teruggeven als output zouden we te maken hebben met een lineaire functie, daarom wordt er nog een extra stap toegevoegd : de activeringsfunctie.
+Het proces waarbij data van de input-lagen naar de output lagen van een neuraal netwerk beweegt wordt ook feedforward propagation genoemd, dit proces vindt zowel plaats tijdens het trainen als tijdens het testen en gebruiken van een model. bij feedforward propagation zijn de activatiefuncties van de neuronen de wiskundige bruggen tussen de input van de neuronen en de output die ze genereren. Er is echter ook een proces waarbij de gewichten van de inputs worden aangepast, op basis van de afwijking tussen het resultaat dat het model heeft teruggegeven en het verwachte resultaat, dit proces is backpropagation en vindt alleen plaats tijdens trainingsproces. 
+\subsubsection{Backpropagation}
+\textcite{Rumelhart1986} beschreef backpropagation als een nieuwe leerprocedure voor netwerken die opgebouwd zijn met neuronachtige knopen. De procedure bestaat uit het herhaaldelijk aanpassen van gewichten van de verbindingen tussen de neuronen van het netwerk op een zodanige manier dat de effectieve output vector zo dicht mogelijk bij de gewenste output vector ligt. De mogelijkheid om nieuwe gedragingen toe te voegen aan een netwerk op een dynamische manier onderscheidt backpropagation van andere, oudere en simpelere methodes die daarvoor werden gebruikt. 
+
+\\
+\hfill \break
+Welke vorm van backpropagation moet worden toegepast, is afhankelijk van welke activeringsfunctie de neuronen in het netwerk hebben. 
+Er zijn verschillende soorten activeringsfuncties en deze bepalen de effectieve gedragingen van het zowel de neuron als het volledige neurale netwerk. 
+\subsubsection{Binaire stap functie}
+De binaire stap functie is afhankelijk van een kritische waarde die beslist of een neuron moet worden geactiveerd of niet. Voor een binaire stap functie met als kritische waarde a, ziet het functievoorschrift er uit als volgt : 
+\[f(x) =  \left\{ \begin{matrix}\mbox{Als } \mathcal{x} > a & 1 \\ \mbox{Anders } & 0 \end{matrix}\right.\] 
+
+Het gebruik van deze functie brengt wel ook een aantal beperkingen met zich mee, zo is het bijvoorbeeld onmogelijk om meer dan 2 gevallen te onderscheiden en het is onmogelijk om de precieze input waarde van de functie te achterhalen, wat het backpropagation proces hindert.
+
+\subsubsection{Lineaire activatie functie} 
+De lineaire activatie functie, ook wel identiteitsfunctie genoemd, doet geen extra wiskundige operaties op de waarde die hij als input krijgt. Het functievoorschrift ziet er uit als volgt : 
+\[f(x) =  x\]
+
+Deze functie is alleen geschikt voor de neuronen in de output en input lagen, ze kunnen niks toevoegen aan de verborgen lagen. 
+
+\subsubsection{Niet-lineaire activatie functies}
+Niet-lineaire activatie functies laten modellen toe om complexe relaties tussen verschillende inputs en outputs te doen ontstaan. Hierdoor zijn ze wel geschikt voor backpropagation aangezien de functies toelaten om terug te keren naar de input waarden van de neuronen. Ze laten ook toe om verschillende verborgen lagen op elkaar te stapelen . 
+
+\paragraph{Sigmoïd functie}
+De sigmoïd functie kan elke reële waarde als input waarde nemen en geeft altijd een outputwaarde terug tussen 0 en 1, hierbij zullen hoge, positieve input waardes resulteren in een resultaat dichter bij 1 terwijl lage (negatieve) waardes input waardes resulteren in een resultaat dichter bij 0. Het voorschrift van de sigmoïd functie ziet er uit als volgt : 
+\[f(x) = \dfrac{1}{1 + e^{-x}}\]
+Het is een zeer populaire functie aangezien het resultaat van de functie kan worden geïnterpreteerd als een kans-waarde. 
+Een probleem met deze functie is dat ze alleen significant  is voor input waardes tussen -3 en 3, eenmaal de waardes buiten dit interval gaan, worden de verschillen tussen de outputwaardes veel kleiner, dit probleem noemt men de verdwijnende gradiënt. 
+
+\paragraph{Tanh functie}
+De tanh functie is gelijkaardig aan de sigmoïd functie qua gedraging behalve dat de outputwaardes tussen -1 en 1 liggen in de plaats en 0 en 1, het functievoorschrift ziet er uit als volgt : 
+\[f(x) = \dfrac{(e^{x} - e^{-x})}{(e^{x}+ e^{-x})}\]
+
+Deze functie is gecentreerd rond 0, wat toelaat om de outputwaardes te verdelen in sterk negatieve, neutrale en sterk positieve gevallen. Ook deze functie heeft last van een verdwijnende gradiënt. 
+
+\paragraph{ReLU functie}
+ReLU staat voor Rectified Linear Unit. Alhoewel deze functie doet denken aan een lineaire functie, heeft hij een afgeleide die toelaat om aan backpropagation te doen en is tegelijkertijd zeer efficiënt op computationeel  vlak. De voornaamste reden hiervoor is dat de functie er voor zorgt dat niet alle neuronen tegelijkertijd worden geactiveerd. Het functievoorschrift ziet er uit als volgt : 
+\[f(x) = max(0, x)\]
+Alleen de neuronen die als inputwaarde voor hun activeringsfunctie een waarde hebben die groter is dan 0 worden dus geactiveerd. Het grootste probleem met deze functie is dat, door het feit dat het negatieve gedeelte van de functie 0 is, er bij backpropagation geen aanpassingen zullen worden gedaan aan de biases en gewichten van de neuronen die niet werden geactiveerd. Om dit probleem tegen te gaan, kan er ook gebruik gemaakt worden van een Leaky ReLU functie. 
+
+\paragraph{Leaky ReLU functie}
+Deze verbeterde versie van de ReLU functie werkt met een kleine positieve helling op het negatieve gedeelte van de functie, dit wordt bereikt door het functievoorschrift aan te passen als volgt : 
+\[f(x) = max(0.1x, x)\]
+
+Op deze manier ontstaan er geen dode nodes meer en kan er dus wel aan backpropagation gedaan worden. Er bestaan ook nog andere varianten op de ReLU functie zoals de parametrische ReLu functie en de  exponentiele LU functie.
+\autocite{Pragati2023} \autocite{Krizhevsky2017} \autocite{LeCun2015}
+
+\subsection{Stijgende populariteit}
+Reeds in 1943 beschreven \textcite{McCulloch1943} al op theoretisch niveau hoe een neuraal netwerk zou kunnen werken en gebruikt worden om de werking van echte (biologische) neurale netwerken na te bootsen. Jammer genoeg waren neurale netwerken voor een lange tijd geen praktisch haalbare oplossingen omdat  de hardware die moest worden gebruikt om de modellen te gebruiken en trainen niet goed genoeg was. Dankzij nieuwe technologieën en doorbraken op hardware vlak, zoals de mogelijkheid om meerdere GPU's tegelijkertijd te gebruiken, cloud computing en multi-core processing kan de hedendaagse hardware wel omgaan met de operaties die nodig zijn om modellen te gebruiken en trainen. Ook het feit dat we tegenwoordig toegang hebben tot veel grotere en uitgebreidere datasets dan vroeger heeft mee geleid tot de hoge populariteit van Machine Learning vandaag
+\autocite{Ravi2017}. Een andere belangrijke doorbraak was het werk van \textcite{Krizhevsky2017}\} waarin werd beschreven hoe een diep neuraal netwerk (met meerdere verborgen lagen) werd getraind om foto's te classificeren  en werd meteen de beste (meest nauwkeurige) oplossing om dit te doen. Dit onderzoek toonde de potentiele kracht van deep learning aan. Het was een enorme boost voor de huidige revolutie voor deep learning in computer visie. Het introduceerde ook een aantal nieuwe concepten zoals de eerder vermelde Leaky ReLU functie, het is tot op heden een belangrijke referentie binnen het onderzoeksveld. 
+
+
+\subsection{ Automated machine learning}
+Machine Learning wordt de laatste jaren gebruikt voor het oplossen van ver uiteenlopende problemen. Om de ontwikkelkost van het trainen, deployen en gebruiken van machine learning modellen te vereenvoudigen, kan er gebruik worden gemaakt van Automated Machine Learning (AutoML), een pipeline die het volledige proces automatiseert \autocite{He2021}. AutoML is ontworpen om domein experts met weinig kennis van Machine Learning toch toe te laten om Machine Learning modellen te gebruiken. De AutoML pipeline bestaat uit een aantal vaste stappen: 
+\begin{itemize}
+\item \textbf{data preparation}: het voorbereiden van de data waarmee het uiteindelijke model moet worden getraind en getest.
+\item\textbf{ feature engineering} : het specificeren van de gewenste functionaliteit van het uiteindelijke model. 
+\item \textbf{model generation} :  tijdens dit proces wordt het model getraind en geoptimaliseerd. 
+\item\textbf{ model evaluation} : het meten en berekenen van de verschillende evaluatie parameters van het gegenereerde model. 
+\end{itemize}
+
+\subsubsection{Hyper parameters}
+Tijdens het model generation proces worden onder andere de hyperparameters van het model aangepast om zo het model te verbeteren. Het kan ook worden gebruikt buiten de context van AutoML. Het heeft zijn eigen algoritmes om bepaalde evaluatieparameters van modellen te verhogen. Enkele voorbeelden van deze algoritmes zijn Black Box Optimizatie en Bayes Optimizatie, maar AWS maakt bijvoorbeeld gebruik van zijn eigen algoritmes om de hyperparameters van modellen aan te passen \autocite{Feurer2019}. Enkele voorbeelden van parameters die tijdens dit proces kunnen worden aangepast zijn : aantal lagen in een neuraal netwerk, regularisatie parameter en type model.
+Dit is een voorbeeld van een technisch complex proces dat anders door data- en Machine Learning-experts wordt uitgevoerd. 
+\begin{figure}
+\label{machine_learning_frameworks_tabel}
+\caption{overzichtstabel van machine learning frameworks en hen voor- en nadelen}}
+\begin{center}
+\begin{tabular} {| m{2.5cm} | m{6cm}| m{6cm} |} 
+    \hline
+    \textbf{framework} & voordelen & nadelen \\
+    \hline
+    TensorFlow & ontwikkeld en ondersteund door Google & trager en minder gebruiksvriendelijk dan anderen, niet compatibel met Windows systemen \\
+    \hline
+    Keras & voorziet modellen die reeds getraind zijn, goed voor multi-platform en multi-backend integraties   & errors zijn moeilijk te identificeren \\
+    \hline
+    MXNet & schaalbaar, efficiënt, snel en ondersteunt meerdere programmeer talen  & minder open-source gemeenschap in vergelijking met bijvoorbeeld TensorFlow \\
+    \hline
+    PyTorch & goed voor beginners, multi-GPU support, goede Python integratie mogelijkheden & gebrek aan visualisatie en monitorings tools\\
+    \hline
+    Caffe & open-source en gemaakt voor ontwikkelaars, goed voor systemen met beperkte resources & stijle leercurve\\
+    \hline    
+    Theano & ondersteuning voor CPU en GPU architecturen, ingebouwde unit-testing & gebrek aan visualisatie en monitorings tools\\
+    \hline
+\end{tabular}
+\end{center}
+\end{figure}
+
+\subsection{Machine Learning frameworks}
+Om de complexe wiskundige processen die schuil gaan achter het trainen en gebruiken van machine learning models te vereenvoudigen bestaan er verschillende frameworks die gebruikers toe laten om op een meer programmatorische manier om te gaan met het trainen en gebruiken van machine learning models. Het is niet zo dat 1 framework voor alle use-cases beter is dan alle andere, de keuze hangt af van de specifieke use-case. Ook de eerder vermelde AutoML modellen maken gebruik van deze frameworks \autocite{Bahrampour2015}. Elk framework heeft natuurlijk zijn eigen voor en nadelen, zie figuur \ref{machine_learning_frameworks_tabel}.
+
+\autocite{ProjectPro2023}
+\textcite{Bahrampour2015} vergelijken verschillende machine learning frameworks (Caffe, Neon, TensorFlow, Theano, and PyTorch) op 3 verschillende criteria:
+\begin{itemize}[]
+\item gebruik van hardware : In welke makte kan een framework gebruik maken van alle hardware die in een bepaald systeem aanwezig is : multi-threaded CPU, GPU, multi-GPU?
+\item performantie : Hoe goed is het voorspellend vermogen van de modellen die de frameworks genereren?
+\item snelheid : Hoe lang duurt het voordat het framework een model heeft getraind met een bepaalde grootte van dataset?
+\item uitbreidbaarheid : In welke mate kan een model van een framework werken op gedistribueerde systemen?
+\end{itemize}
+Uit deze vergelijking bleek dat PyTorch en Theano de meest uitbreidbare frameworks zijn, Theano en Neon het best gebruik kunnen maken van alle hardware en dat TensorFlow zeer flexibel is maar dat het op dat moment niet snel genoeg was om competitief  te zijn met de andere frameworks. 
+
+\section{Machine Learning as a Service (MLaaS)}
+MLaaS is de term voor de verzameling van cloud-based platforms die machine learing gebruiken om oplossingen aan te bieden \autocite{Onose2022}. Deze oplossing kunnen meerdere vormen aannemen: 
+\begin{itemize}
+    \item voorspellende analyse voor verschillende use cases
+    \item trainen en afstellen van een model
+    \item implementatie van een model
+\end{itemize}
+
+MLaaS heeft ook een aantal gebreken. Zo heb je zelf niet altijd controle over de gebruikte algoritmes en parameters, en het is niet geschikt voor gevoelige data, zoals persoonlijke gegevens.
+
+\subsection{ETL-services}
+ETL (Extract-Transform-Load)  processen kunnen worden gebruikt om data uit verschillende bronnen te bundelen in een enkele databank. ETL-services zijn services die toe laten om om deze processen uit te voeren en aan te passen naar eigen voorkeuren. Ze kunnen onder andere worden gebruikt in Data warehousing, Machine learning, Cloud migration en IoT data integration \autocite{Diouf2018}.
+
+\section{Amazon SageMaker}
+Amazon SageMaker is de MLaaS oplossing van Amazon Web Services (AWS). Het laat data-experts en ontwikkelaars toe om machine learning modellen te bouwen, trainen en deze te deployen. Het ondersteunt JuPyther. SageMaker is onderdeel van verschillende Machine Learning omgevingen : 
+\begin{itemize}[]
+    \item SageMaker Studio : Geïntegreerde Machine Learning omgeving waar modellen kunnen worden gebouwd, getraind, gedeployed en geanalyseerd in een enkele applicatie. 
+    \item SageMaker Studio Lab: Gratis service die klanten  toegang verleent tot AWS resources in een omgeving die gebaseerd is op open-source JuPyterLab. 
+    \item SageMaker Canvas : Een AutoML service die mensen zonder programmeer ervaring de mogelijkheid geeft om modellen te bouwen en voorspellingen te doen met die modellen.
+    \item RStudio on Amazon SageMaker :  Geïntegreerde ontwikkelings omgeving voor R, inclusief console, editor die het uitvoeren van code ondersteunt, tools voor visualisatie, debugging en workspace management. 
+ \end{itemize}
+
+De belangrijkste features van SageMaker zijn : 
+\begin{itemize}
+    \item Amazon Augmented AI : ondersteuning voor menselijke controle op Machine Learning voorspellingen
+    \item SageMaker Autopilot : laat gebruikers toe om zonder kennis van machine learning snel classificatie en regressie modellen te bouwen
+    \item Batch Transform : het  preprocessen van datasets
+    \item SageMaker Clarify : laat toe om mogelijke gedragingen van modellen uit te leggen 
+    \item SageMaker Debugger : het inspecteren van paramaters en data doorheen het trainingsproces. 
+    \item SageMaker Experiments : laat toe om data te tracken doorheen het proces en om verder te werken op experimenten van anderen. 
+    \item SageMaker JumpStart : leerprogramma dat een overzicht geeft van alle features en mogelijkheden van SageMaker door middel van een voorbeeld notebooks en op voorhand getrainde modellen die kunnen worden gedeployed. 
+    \item SageMaker Model Building Pipeline : laat de gebruiker toe om machine learning pipelines direct te integreren met SageMaker jobs. 
+    \item SageMaker Model Monitor : laat de gebruiker toe om de modellen die gedeployed zijn te analyseren. 
+    \item SageMaker Model Registry : versioning
+    \item SageMaker Neo : laat de gebruiker toe om een model eenmalig te laten trainen en vervolgens te deployen
+\end{itemize}
+\autocite{AWS2023}
+
+\subsection{Amazon SageMaker AutoPilot}
+Amazon SageMaker AutoPilot is een systeem dat AutoML oplossingen aanbiedt voor een gegeven dataset en aangeduide kolom in de dataset die moet worden voorspeld. AutoPilot identificeert het probleem, maakt een analyse van de data en produceert een diverse verzameling van volledige Machine Learning pipelines waaruit de eindgebruiker kan kiezen. De pipeline die uiteindelijk door de eindgebruiker wordt gekozen kan ook nog worden aangepast. 
+AutoPilot werkt intern in 2 grote fases: de kandidaat generatie fase en de kandidaat exploratie fase
+
+\subsubsection{Kandidaat generatie fase}
+In deze fase onderneemt AutoPilot de volgende stappen: 
+\begin{enumerate}
+    \item de inputdata wordt opgesplitst in een trainings- en validatiedataset
+    \item er wordt een analyse gemaakt van de kolom die voorspeld moet worden, aangezien deze invloed kan hebben op het type probleem
+    \item er wordt een custom python module gegenereerd met daarin code die de input data kan omvormen in 10 verschillende manieren
+    \item er worden 10 Machine Learning pipelines gegenereerd in de vorm van een JuPyter notebook, deze worden AutoPilot kandidaat definitie notebooks genoemd
+    \item er wordt een notebook gegenereerd met daarin de resultaten van de analyse van de dataset
+\end{enumerate}
+
+\subsubsection{Kandidaat exploratie fase}
+In deze fase worden de gegeneerde pipelines uit de vorige fase uitgevoerd met gesofisticeerde hyperparameters optimizatie technieken om zo op zoek te gaan naar de configuratie die het meest voorspellend vermogen heeft. 
+
+\autocite{Das2020}
+
+\section{Azure Machine Learning Services}
+Azure Machine Learning is de MLaaS oplossing van Microsoft Azure. Ook in Azure kunnen er Machine Learning modellen worden gebouwd, getraind en gedeployed. De belangrijkste features van Azure Machine Learning zijn : 
+\begin{itemize}
+    \item Data labeling : het aanmaken, beheren en monitoren van labeling projecten en het automatiseren van repetitieve taken door middel van Machine Learning geassisteerde labeling. 
+    \item Data voorbereiding : het aanmaken, analyseren en omvormen van datasets
+    \item notebooks : ondersteuning voor JuPyter notebooks die kunnen worden bewerkt in Visual Studio Code
+    \item geautomatiseerde Machine Learning : er kunnen snel modellen worden gegeneert via AutoML voor classificatie, regressie, taal- verwerkings- en computer vision problemen. 
+    \item Drag-and-drop machine learning : Er kunnen custom Machine Learning pipelines worden aangemaakt door gebruik te maken van een intuïtieve drag-and-drop interface. 
+    \item cost management : De eindgebruiker heeft volledige controle over de resources die gebruikt worden tijdens het gebruik van Azure Machine Learning services, waardoor er extra flexibiliteit ontstaat. 
+\end{itemize}
+\subsection{Azure AutoML}
+Azure biedt naast zijn MLaaS ook ondersteuning voor AutoML, deze AutoML was het resultaat van een doorbraak op de Microsoft Research divisie en werd beschreven door \textcite{Sheth2018}. Door het steeds stijgende aantal Machine Learning modellen die worden gebouwd wordt het steeds moeilijker en moeilijker om een keuze te maken voor een bepaalde manier van werken. De oplossing die Azure hiervoor aanbiedt, is een aanradings-systeem dat gebruikers kan begeleiden in het bouwen en trainen van Machine Learning modellen. Het is vergelijkbaar met streamingservices die nieuwe series en film aanbevelen aan hun gebruikers, gebaseerd op hun eerdere gedragingen en de gedragingen van de volledige groep gebruikers van het platform. Belangrijk verschil is wel dat Azure AutoML geen zicht heeft op de data van de gebruiker zelf: het gebruikt de probleemstelling en structuur van de dataset om een trainingsmethode te kiezen en modelarchitectuur op te bouwen. De service werd voor het eerst gereleased in september 2018 \autocite{Mukunthu2018}. 
+
+
+\section{Google Cloud Services}
+Google Cloud Services is de verzameling van alle Software as a Service oplossingen die Google aanbiedt, waaronder onder ook MLaaS. Vertex AI is de specifieke oplossing waarmee Machine Learning modellen gebouwd kunnen worden met AutoML maar ook custom training jobs kunnen worden aangemaakt en uitgevoerd. Bij Vertex AI is het de bedoeling dat alles wordt opgestart met API calls, er is geen ondersteuning voor JuPyter notebooks. Er is wel ondersteuning en documentatie voor verschillende types van Machine Learning problemen, in combinatie met een uitgebreide documentatie. 
+
+\subsection{Cloud AutoML}
+Ook Google heeft een AutoML oplossing, dezelfde principes als bij AWS en Azure komen hier terug. Het grootste verschil is dat bij Google alle complexiteit en gegevens van het model nog meer zijn afgeschermd dan bij AWS en Azure \autocite{Xin2021}
+
+\section{Eerder onderzoek}
 \textcite{Madhuri2016} stelt dat de verschillen tussen Amazon Web Services (AWS) en Microsoft Azure klein zijn en dat de keuze voor de ene of de andere optie neerkomt op use-case en eigen voorkeur. \textcite{Pinto2018} gebruikte de volgende criteria om MLaaSes te vergelijken :
 \begin{itemize}
     \item schaalbaarheid
@@ -104,18 +331,13 @@ Als de nauwkeurigheid van het model wordt berekend op basis van deze matrix dan 
     \item in welke mate dient de oplossing zijn oorspronkelijke doel
     \item bruikbaarheid
 \end{itemize}
-\textcite{Pallavi2020} vergeleek de AWS, Google en Azure oplossingen op algemeen vlak, en dus niet voor een specifieke usecase, maar concludeerde net als \textcite{Madhuri2016} dat de keuze afhankelijk is van de use-case en eigen voorkeur.
+\textcite{Pallavi2020} vergeleek de AWS, Google en Azure oplossingen op algemeen vlak, en dus niet voor een specifieke use-case, maar concludeerde net als \textcite{Madhuri2016} dat de keuze afhankelijk is van de use-case en eigen voorkeur.
 
-Uit \textcite{Pallavi2020} en \textcite{Madhuri2016} kunnen we volgende tabel besluiten: 
+Uit \textcite{Pallavi2020} en \textcite{Madhuri2016} kunnen we het volgende afleiden: 
 \begin{itemize}
     \item schaalbaarheid en het ondersteunen van meerdere SQL-varianten zijn de grootste troeven van AWS
     \item het feit dat Azure gemakkelijk in te passen is in een reeds bestaande Microsoft omgeving is een grote troef van Azure
     \item Google maakt gebruik van de meest performante systemen om zijn berekeningen te doen en heeft veel ingebouwde libraries
     \item Azure ondersteunt alleen AzureSQL
 \end{itemize}
-
-
-\section{PIM}
-Het belang van Product Information Management (PIM) stijgt door het alsmaar verhoogde niveau van de technische complexiteit  van producten, die complexiteit zorgt ervoor namelijk voor dat er een overvloed aan informatie ontstaat die bovendien moeilijk up-to-date kan worden gehouden. \autocite{Fr_mling_2006} Vaak combineert een PIM-systeem data uit verschillende andere systemen en databronnen (zoals ERP's, databanken, excels, etc.) en bundelt het die tot een single-source of truth die bovendien altijd up-to-date is. De data van het PIM-systeem kan dan worden geconsumeerd door brand portals, product sheets, een webshop, ...
-
 

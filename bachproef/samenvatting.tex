@@ -33,15 +33,7 @@
 % Wie zijn bachelorproef in het Nederlands schrijft, kan dit negeren, de inhoud
 % wordt niet in het document ingevoegd.
 
-\IfLanguageName{english}{%
-\selectlanguage{dutch}
-\chapter*{Samenvatting}
-\lipsum[1-4]
-\selectlanguage{english}
-}{}
+\chapter{Samenvatting}
+Product Information Management (PIM) systemen bundelen informatie uit verschillende bronnen en creëren zo een single source of truth. PIMLayer is een bedrijf dat PIM systemen aanbiedt die nog door hun klanten kunnen worden geconfigureerd. Deze PIM systemen werken met een taxonomie systeem dat de gebruikers toelaat om complexe query’s op een intuïtieve  en efficiënte manier op te stellen en uit te voeren. Tot op heden moeten de tags uit de taxonomie systemen door de gebruikers met de hand worden toegevoegd aan de entiteiten, wat voor een grote werklast zorgt bij de klanten van PIMLayer. Om deze werklast te verlichten zou er gebruik kunnen gemaakt worden van machine learning modellen die de tags van de entiteiten in het systeem kunnen voorspellen. Deze modellen kunnen worden getraind  en gedeployed door gebruik te maken van Machine Learning as a Service (MLaaS) providers. In deze bachelorproef wordt er onderzocht welke provider van MLaaS het best past bij deze specifieke use case. Hierbij kan er worden gekeken naar  welke provider best presteert bij kleinere datasets, de prijs en gebruiksvriendelijkheid. In deze studie worden 3 verschillende providers van MLaaS vergeleken: AWS SageMaker, Azure Machine Learning Services en Google Cloud Platform. 
 
-%%---------- Samenvatting -----------------------------------------------------
-% De samenvatting in de hoofdtaal van het document
-
-\chapter*{\IfLanguageName{dutch}{Samenvatting}{Abstract}}
-
+Om de prestaties van deze providers te vergelijken wordt er gebruik gemaakt van een dataset afkomstig van een PIM systeem dat reeds bestaat en van tags is voorzien. Uit deze dataset worden er 5 datasets gemaakt: 1 met een grootte van 10, 20, 30, 50 en 100\% van de originele dataset. Door gebruik te maken van deze 5 datasets, kunnen we de nauwkeurigheden en de gewogen nauwkeurigheden van de modellen die de providefrs genereerden vergelijken. Het minimum aantal records in de trainingsdataset bij Google Cloud Platform is 1000, wat deze provider een ongeschikt maakt voor deze use case. Azure kon voor elke dataset een betere nauwkeurigheid en gewogen nauwkeurigheid voorleggen en kan goedkoper worden geconfigureerd dan AWS SageMaker. Daardoor is Azure Machine Learning Services de beste optie om effectief te integreren in de PIM systemen van PIMLayer.  
